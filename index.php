@@ -37,10 +37,10 @@ or die('Error connecting to MySQL server.');
             <ul class="nav navbar-nav menu_nav justify-content-end">
               <li class="nav-item active"><a class="nav-link" href="index.php">Home</a></li>
               <li class="nav-item"><a class="nav-link" href="menu.html">Menu</a>
-              <li class="nav-item"><a class="nav-link" href="orderstatus.html">Contact</a></li>
+              <li class="nav-item"><a class="nav-link" href="orderstatus.html">Order</a></li>
             </ul>
               <form method="POST" action="index.php">
-           <input type="text" name="flavour" placeholder="flavour.."/><br />
+           <input type="text" name="cflavour" placeholder="flavour.."/><br />
               </form>
               <div class="search-container">
                   <form method="POST" action="index.php">
@@ -59,7 +59,7 @@ or die('Error connecting to MySQL server.');
   <section class="hero-banner">
     <div class="hero-wrapper">
       <div class="hero-left">
-        <h1 class="hero-title">Foods the <br> most precious things</h1>
+        <h1 class="hero-title">Cake the most important thing</h1>
         <div class="d-sm-flex flex-wrap">
           <a class="button button-hero button-shadow" href="#reserve-section">Order Now</a>
         </div>
@@ -77,16 +77,13 @@ or die('Error connecting to MySQL server.');
       <div class="hero-right">
         <div class="owl-carousel owl-theme hero-carousel">
           <div class="hero-carousel-item">
-            <img class="img-fluid" src="img/banner/hero-banner1.png" alt="">
+            <img class="img-fluid" src="img/banner/red-velvet-banner.jpg" alt="">
           </div>
           <div class="hero-carousel-item">
-            <img class="img-fluid" src="img/banner/hero-banner2.png" alt="">
+            <img class="img-fluid" src="img/banner/matcha-banner.jpg" alt="">
           </div>
           <div class="hero-carousel-item">
-            <img class="img-fluid" src="img/banner/hero-banner1.png" alt="">
-          </div>
-          <div class="hero-carousel-item">
-            <img class="img-fluid" src="img/banner/hero-banner2.png" alt="">
+            <img class="img-fluid" src="img/banner/strawberry-banner.jpg" alt="">
           </div>
         </div>
       </div>
@@ -112,7 +109,9 @@ or die('Error connecting to MySQL server.');
                 <h3 class="price-tag">6' $35</h3>
                 <h3 class="price-tag">8' $55</h3>
               </div>
-              <p>Whales and darkness moving form cattle</p>
+                <form>
+                    <p>Whales and darkness moving form cattle</p>
+                </form>
             </div>
           </div>
         </div>
@@ -354,7 +353,29 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	</footer>
   <!-- ================ End footer Area ================= -->
 
-
+<script>
+    var attempt = 3; // Variable to count number of attempts.
+    // Below function Executes on click of login button.
+    function validate(){
+        var username = document.getElementById("username").value;
+        var password = document.getElementById("password").value;
+        if ( username == "Formget" && password == "formget#123"){
+            alert ("Login successfully");
+            window.location = "orderstatus.html"; // Redirecting to other page.
+            return false;
+        }
+        else{
+            attempt --;// Decrementing by one.
+            alert("You have left "+attempt+" attempt;");
+// Disabling fields after 3 attempts.
+            if( attempt == 0){
+                document.getElementById("username").disabled = true;
+                document.getElementById("password").disabled = true;
+                document.getElementById("submit").disabled = true;
+                return false;
+            }
+        }
+    }</script>
   <script src="vendors/jquery/jquery-3.2.1.min.js"></script>
   <script src="vendors/bootstrap/bootstrap.bundle.min.js"></script>
   <script src="vendors/owl-carousel/owl.carousel.min.js"></script>
@@ -367,7 +388,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 </html>
 
 <?php
-
 //if (array_key_exists('SearchFlavour', $_POST)) {
 //// Get values from the user and insert data into
 //// the table.
@@ -379,15 +399,20 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 //    );
 //    mysqli_query($query, $alltuples);
 //}
+if (isset($_POST['cflavour'])){
+    $flavour = mysqli_real_escape_string($db, $_POST['cflavour']);
+    $query = "SELECT * FROM CakeType WHERE flavour = '{$flavour}' ";
+    mysqli_query($db, $query) or die('Error querying database.');
 
-$query = "SELECT * FROM CakeType WHERE flavour ='chocolate'";
-mysqli_query($db, $query) or die('Error querying database.');
+    $result = mysqli_query($db, $query);
+    $row = mysqli_fetch_array($result);
 
-$result = mysqli_query($db, $query);
-$row = mysqli_fetch_array($result);
-
-while ($row = mysqli_fetch_array($result)) {
-    echo $row['flavour'] . ' ' . $row['cname'] . ': ' . $row['ingredients'] . ' ' . $row['topping'] .'<br />';
+    while ($row = mysqli_fetch_array($result)) {
+        echo $row['flavour'] . ' ' . $row['cname'] . ': ' . $row['ingredients'] . ' ' . $row['topping'] .'<br />';
+    }
+}else{
+    echo 'wrong';
 }
+
 
 ?>

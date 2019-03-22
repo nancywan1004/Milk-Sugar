@@ -60,10 +60,16 @@
         </ul>
       </div>
       <div class="hero-right">
-        <div class="owl-carousel owl-theme w-100 hero-carousel">
-          <div class="hero-carousel-item">
-            <img class="img-fluid" src="img/banner/hero-banner-sm.png" alt="">
-          </div>
+
+        <div class="jslogin">
+          <h3>Login</h3>
+          <form id="form_id" method="post" name="myform">
+            <label>User Name :</label>
+            <input type="text" name="username" id="username"/>
+            <label>Password :</label>
+            <input type="password" name="password" id="password"/>
+            <input type="button" value="Login" id="submit" onclick="validate()"/>
+          </form>
         </div>
       </div>
     </div>
@@ -182,7 +188,29 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
 
 
-
+  <script>
+    var attempt = 3; // Variable to count number of attempts.
+    // Below function Executes on click of login button.
+    function validate(){
+      var username = document.getElementById("username").value;
+      var password = document.getElementById("password").value;
+      if ( username == "Formget" && password == "formget#123"){
+        alert ("Login successfully");
+        window.location = "orderstatus.html"; // Redirecting to other page.
+        return false;
+      }
+      else{
+        attempt --;// Decrementing by one.
+        alert("You have left "+attempt+" attempt;");
+// Disabling fields after 3 attempts.
+        if( attempt == 0){
+          document.getElementById("username").disabled = true;
+          document.getElementById("password").disabled = true;
+          document.getElementById("submit").disabled = true;
+          return false;
+        }
+      }
+    }</script>
   <script src="vendors/jquery/jquery-3.2.1.min.js"></script>
   <script src="vendors/bootstrap/bootstrap.bundle.min.js"></script>
   <script src="vendors/owl-carousel/owl.carousel.min.js"></script>
