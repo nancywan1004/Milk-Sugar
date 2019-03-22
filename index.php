@@ -48,7 +48,7 @@ or die('Error connecting to MySQL server.');
                   </form>
               </div>
 
-          </div> 
+          </div>
         </div>
       </nav>
     </div>
@@ -90,126 +90,6 @@ or die('Error connecting to MySQL server.');
     </div>
   </section>
   <!--================Hero Banner Section end =================-->
-
-
-  <!--================Food menu section start =================-->  
-  <section class="section-margin">
-    <div class="container">
-      <div class="section-intro mb-75px">
-        <h4 class="intro-title">Cake Menu</h4>
-        <h2>Delicious cake</h2>
-      </div>
-      <div class="row">
-        <div class="col-lg-6">
-          <div class="media align-items-center food-card">
-            <img class="mr-3 mr-sm-4" src="img/home/red-velvet.jpg" alt="">
-            <div class="media-body">
-              <div class="d-flex justify-content-between food-card-title">
-                <h4>Red Velvet</h4>
-                <h3 class="price-tag">6' $35</h3>
-                <h3 class="price-tag">8' $55</h3>
-              </div>
-                <form>
-                    <p>Whales and darkness moving form cattle</p>
-                </form>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-6">
-          <div class="media align-items-center food-card">
-            <img class="mr-3 mr-sm-4" src="img/home/food1.png" alt="">
-            <div class="media-body">
-              <div class="d-flex justify-content-between food-card-title">
-                <h4>Roasted Marrow</h4>
-                <h3 class="price-tag">$32</h3>
-              </div>
-              <p>Whales and darkness moving form cattle</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-6">
-          <div class="media align-items-center food-card">
-            <img class="mr-3 mr-sm-4" src="img/home/food1.png" alt="">
-            <div class="media-body">
-              <div class="d-flex justify-content-between food-card-title">
-                <h4>Roasted Marrow</h4>
-                <h3 class="price-tag">$32</h3>
-              </div>
-              <p>Whales and darkness moving form cattle</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-6">
-          <div class="media align-items-center food-card">
-            <img class="mr-3 mr-sm-4" src="img/home/food1.png" alt="">
-            <div class="media-body">
-              <div class="d-flex justify-content-between food-card-title">
-                <h4>Roasted Marrow</h4>
-                <h3 class="price-tag">$32</h3>
-              </div>
-              <p>Whales and darkness moving form cattle</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-6">
-          <div class="media align-items-center food-card">
-            <img class="mr-3 mr-sm-4" src="img/home/food1.png" alt="">
-            <div class="media-body">
-              <div class="d-flex justify-content-between food-card-title">
-                <h4>Roasted Marrow</h4>
-                <h3 class="price-tag">$32</h3>
-              </div>
-              <p>Whales and darkness moving form cattle</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-6">
-          <div class="media align-items-center food-card">
-            <img class="mr-3 mr-sm-4" src="img/home/food1.png" alt="">
-            <div class="media-body">
-              <div class="d-flex justify-content-between food-card-title">
-                <h4>Roasted Marrow</h4>
-                <h3 class="price-tag">$32</h3>
-              </div>
-              <p>Whales and darkness moving form cattle</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-6">
-          <div class="media align-items-center food-card">
-            <img class="mr-3 mr-sm-4" src="img/home/food1.png" alt="">
-            <div class="media-body">
-              <div class="d-flex justify-content-between food-card-title">
-                <h4>Roasted Marrow</h4>
-                <h3 class="price-tag">$32</h3>
-              </div>
-              <p>Whales and darkness moving form cattle</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-6">
-          <div class="media align-items-center food-card">
-            <img class="mr-3 mr-sm-4" src="img/home/food1.png" alt="">
-            <div class="media-body">
-              <div class="d-flex justify-content-between food-card-title">
-                <h4>Roasted Marrow</h4>
-                <h3 class="price-tag">$32</h3>
-              </div>
-              <p>Whales and darkness moving form cattle</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!--================Food menu section end =================-->
 
 
 
