@@ -1,5 +1,5 @@
 <?php
-$db = mysqli_connect('127.0.0.1','root','Nick19891207','MilkSugar')
+$db = mysqli_connect('127.0.0.1','root','root','milkandsugar')
 or die('Error connecting to MySQL server.');
 ?>
 <html lang="en">
@@ -39,11 +39,11 @@ or die('Error connecting to MySQL server.');
               <li class="nav-item"><a class="nav-link" href="menu.html">Menu</a>
               <li class="nav-item"><a class="nav-link" href="orderstatus.html">Order</a></li>
             </ul>
-              <form method="POST" action="index.php">
+              <form method="GET" action="index.php">
            <input type="text" name="cflavour" placeholder="flavour.."/><br />
               </form>
               <div class="search-container">
-                  <form method="POST" action="index.php">
+                  <form method="GET" action="index.php">
                       <button><input type="submit" value="Search" name="SearchFlavour"></button>
                   </form>
               </div>
@@ -59,7 +59,7 @@ or die('Error connecting to MySQL server.');
   <section class="hero-banner">
     <div class="hero-wrapper">
       <div class="hero-left">
-        <h1 class="hero-title">Cake the most important thing</h1>
+        <h1 class="hero-title">Cake, the most important thing</h1>
         <div class="d-sm-flex flex-wrap">
           <a class="button button-hero button-shadow" href="#reserve-section">Order Now</a>
         </div>
@@ -92,129 +92,8 @@ or die('Error connecting to MySQL server.');
   <!--================Hero Banner Section end =================-->
 
 
-  <!--================Food menu section start =================-->  
-  <section class="section-margin">
-    <div class="container">
-      <div class="section-intro mb-75px">
-        <h4 class="intro-title">Cake Menu</h4>
-        <h2>Delicious cake</h2>
-      </div>
-      <div class="row">
-        <div class="col-lg-6">
-          <div class="media align-items-center food-card">
-            <img class="mr-3 mr-sm-4" src="img/home/red-velvet.jpg" alt="">
-            <div class="media-body">
-              <div class="d-flex justify-content-between food-card-title">
-                <h4>Red Velvet</h4>
-                <h3 class="price-tag">6' $35</h3>
-                <h3 class="price-tag">8' $55</h3>
-              </div>
-                <form>
-                    <p>Whales and darkness moving form cattle</p>
-                </form>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-6">
-          <div class="media align-items-center food-card">
-            <img class="mr-3 mr-sm-4" src="img/home/food1.png" alt="">
-            <div class="media-body">
-              <div class="d-flex justify-content-between food-card-title">
-                <h4>Roasted Marrow</h4>
-                <h3 class="price-tag">$32</h3>
-              </div>
-              <p>Whales and darkness moving form cattle</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-6">
-          <div class="media align-items-center food-card">
-            <img class="mr-3 mr-sm-4" src="img/home/food1.png" alt="">
-            <div class="media-body">
-              <div class="d-flex justify-content-between food-card-title">
-                <h4>Roasted Marrow</h4>
-                <h3 class="price-tag">$32</h3>
-              </div>
-              <p>Whales and darkness moving form cattle</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-6">
-          <div class="media align-items-center food-card">
-            <img class="mr-3 mr-sm-4" src="img/home/food1.png" alt="">
-            <div class="media-body">
-              <div class="d-flex justify-content-between food-card-title">
-                <h4>Roasted Marrow</h4>
-                <h3 class="price-tag">$32</h3>
-              </div>
-              <p>Whales and darkness moving form cattle</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-6">
-          <div class="media align-items-center food-card">
-            <img class="mr-3 mr-sm-4" src="img/home/food1.png" alt="">
-            <div class="media-body">
-              <div class="d-flex justify-content-between food-card-title">
-                <h4>Roasted Marrow</h4>
-                <h3 class="price-tag">$32</h3>
-              </div>
-              <p>Whales and darkness moving form cattle</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-6">
-          <div class="media align-items-center food-card">
-            <img class="mr-3 mr-sm-4" src="img/home/food1.png" alt="">
-            <div class="media-body">
-              <div class="d-flex justify-content-between food-card-title">
-                <h4>Roasted Marrow</h4>
-                <h3 class="price-tag">$32</h3>
-              </div>
-              <p>Whales and darkness moving form cattle</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-6">
-          <div class="media align-items-center food-card">
-            <img class="mr-3 mr-sm-4" src="img/home/food1.png" alt="">
-            <div class="media-body">
-              <div class="d-flex justify-content-between food-card-title">
-                <h4>Roasted Marrow</h4>
-                <h3 class="price-tag">$32</h3>
-              </div>
-              <p>Whales and darkness moving form cattle</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-6">
-          <div class="media align-items-center food-card">
-            <img class="mr-3 mr-sm-4" src="img/home/food1.png" alt="">
-            <div class="media-body">
-              <div class="d-flex justify-content-between food-card-title">
-                <h4>Roasted Marrow</h4>
-                <h3 class="price-tag">$32</h3>
-              </div>
-              <p>Whales and darkness moving form cattle</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!--================Food menu section end =================-->
-
-
-
   <!--================Reservation section start =================-->
-  <a name="reserve-section"></a>
+  <a name="reserve-section" id="makeorder_id"></a>
   <section class="bg-lightGray section-padding">
     <div class="container">
       <div class="row align-items-center">
@@ -271,7 +150,7 @@ or die('Error connecting to MySQL server.');
                 </div>
               </div>
               <div class="form-group form-group-position">
-                <button class="button border-0" type="submit">Make Reservation</button>
+                <button class="button border-0" type="submit">Place an Order</button>
               </div>
             </form>
           </div>
@@ -399,20 +278,26 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 //    );
 //    mysqli_query($query, $alltuples);
 //}
-if (isset($_POST['cflavour'])){
-    $flavour = mysqli_real_escape_string($db, $_POST['cflavour']);
-    $query = "SELECT * FROM CakeType WHERE flavour = '{$flavour}' ";
-    mysqli_query($db, $query) or die('Error querying database.');
+	include 'connect.php';
+	$conn = OpenCon();
+	
+	$flavour = (isset($_GET['cflavour']) ? $_GET['cflavour'] : null);
+	
+	$query = "SELECT * FROM caketype WHERE flavour = '{$flavour}' ";
+	$result = $conn->query($query);
 
-    $result = mysqli_query($db, $query);
-    $row = mysqli_fetch_array($result);
+	if ($result->num_rows > 0) {
+		echo "<table><tr><th class='border-class'>flavour</th><th class='border-class'>cname</th><th class='border-class'>ingredients</th><th class='border-class'>topping</th></tr>";
+		
+		// output data of each row 
+		while($row = $result->fetch_assoc()) {
+			echo "<tr><td class='border-class'>".$row["flavour"]."</td><td class='border-class'>".$row["cname"]."</td><td class='border-class'>".$row["ingredients"]."</td><td class='border-class'>".$row["topping"]."</td></tr>";
+		}
+		echo "</table>";
+	} 
+	else {
+		echo "0 results";
+	}
 
-    while ($row = mysqli_fetch_array($result)) {
-        echo $row['flavour'] . ' ' . $row['cname'] . ': ' . $row['ingredients'] . ' ' . $row['topping'] .'<br />';
-    }
-}else{
-    echo 'wrong';
-}
-
-
+	CloseCon($conn);
 ?>
