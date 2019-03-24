@@ -32,8 +32,8 @@
           <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
             <ul class="nav navbar-nav menu_nav justify-content-end">
               <li class="nav-item active"><a class="nav-link" href="index.php">Home</a></li>
-              <li class="nav-item"><a class="nav-link" href="menu.php">Menu</a>
-              <li class="nav-item"><a class="nav-link" href="orderstatus.php">Order</a></li>
+              <li class="nav-item"><a class="nav-link" href="menu.php">Our Menu</a>
+              <li class="nav-item"><a class="nav-link" href="orderstatus.php">Track Your Cake</a></li>
             </ul>
 
           </div>
@@ -47,7 +47,7 @@
   <section class="hero-banner">
     <div class="hero-wrapper">
       <div class="hero-left">
-        <h1 class="hero-title">Cake the most important thing</h1>
+        <h1 class="hero-title">Cake, the most important thing.</h1>
         <div class="d-sm-flex flex-wrap">
           <a class="button button-hero button-shadow" href="#reserve-section">Order Now</a>
         </div>
@@ -79,7 +79,64 @@
   </section>
   <!--================Hero Banner Section end =================-->
 
+    <!--  Review Section Start-->
+  <section class="section-margin">
+      <div class="container">
+          <div class="section-intro mb-75px">
+              <h4 class="intro-title">Reviews</h4>
+              <form class="form-inline menu_filter" method="GET" action="index.php">
 
+                  <div class="row">
+                      <div class="form-group input-flavour">
+                          <div class="col-12"><input type="text" name="cname" placeholder="Cake Name.."></div>
+
+                      </div>
+
+                      <div class="form-group input-searchbtn" style="float: right">
+                          <div class="col-12">
+                              <input type="submit" value="Search" name="SearchReview"></div>
+                      </div>
+                  </div>
+              </form>
+
+          </div>
+          <div class="row">
+              <?php
+              include 'connect.php';
+              $conn = OpenCon();
+              $cname = (isset($_GET['cname']) ? $_GET['cname'] : null);
+              $query = "SELECT rw.cname,rw.score,rw.comment,rw.cakeID FROM Review_Write rw WHERE rw.cname = '{$cname}' ";
+              $result = $conn->query($query);
+              if ($result->num_rows > 0) {
+                  // output data of each row
+                  while($row = $result->fetch_assoc()) {
+                      echo '<div class="col-lg-6">
+      <div class="media align-items-lg-center food-card">
+            <img class="mr-3 mr-sm-4 cakeimg" src="img/home/cakeimg/'.$row['cakeID'].'.png" alt="" width=100px height=100px>
+            <div class="media-body">
+              <div class="d-flex justify-content-between food-card-title">
+        <h4>'.$row['cname'].'</h4>
+        <form>
+        <p>Score: '.$row['score'].'</p>
+        <p>Comment: '.$row['comment'].'</p>
+</form>
+        
+</div>
+</div>
+</div>
+</div>
+';
+                  }
+              }
+              else {
+                  echo "See reviews of the cakes you are interested in !";
+              }
+              ?>
+          </div>
+      </div>
+  </section>
+
+    <!--Review Section End-->
 
   <!--================Reservation section start =================-->
   <a name="reserve-section"></a>
@@ -88,14 +145,14 @@
       <div class="row align-items-center">
         <div class="col-md-6 col-xl-5 mb-4 mb-md-0">
           <div class="section-intro">
-            <h4 class="intro-title">Reservation</h4>
-            <h2 class="mb-3">Get experience from sneaky</h2>
+            <h4 class="intro-title">Make Your Order</h4>
+            <h2 class="mb-3">Spoil your sweet tooth with our cakes.</h2>
           </div>
-          <p>Him given and midst tree form seas she'd saw give evening one every make hath moveth you're appear female heaven had signs own days saw they're have let midst given him given and midst tree. Form seas she'd saw give evening</p>
+          <p>We only use the authentic ingredients to make the best cakes in town. We imported organic butter from New Zealand and coffee beans from Ethiopian Highland. Quality and taste speak for itself.</p>
         </div>
         <div class="col-md-6 offset-xl-2 col-xl-5">
           <div class="search-wrapper">
-            <h3>Want a cake?</h3>
+            <h3>You want it, you got it.</h3>
 
             <form class="search-form" action="index.php">
               <div class="form-group">
@@ -161,8 +218,6 @@
             </form>
 			
 			<?php
-			include 'connect.php';
-			$conn = OpenCon();
 
 			$user_name = (isset($_GET['user_name']) ? $_GET['user_name'] : null);
 			$user_address = (isset($_GET['user_address']) ? $_GET['user_address'] : null);
@@ -193,8 +248,6 @@
 			} else {
 				echo 'Please fill in all fields.';
 			}
-			
-			CloseCon($conn);
 			?>
           </div>
         </div>
@@ -262,4 +315,13 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 </body>
 </html>
 
-
+<?php
+$custName = (isset($_GET['custName']) ? $_GET['custName'] : null);
+$address = (isset($_GET['address']) ? $_GET['address'] : null);
+$phonenum = (isset($_GET['phonenum']) ? $_GET['phonenum'] : null);
+$password = (isset($_GET['password']) ? $_GET['password'] : null);
+$deldate = (isset($_GET['deldate']) ? $_GET['deldate'] : null);
+$addname = "INSERT INTO Customer1 VALUES('{$custName}','{$address}','{$phonenum}','{$password}')";
+$newCust = $conn->query($addname);
+CloseCon($conn);
+?>
