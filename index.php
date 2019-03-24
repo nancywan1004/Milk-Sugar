@@ -1,7 +1,3 @@
-<?php
-$db = mysqli_connect('127.0.0.1','root','Nick19891207','MilkSugar')
-or die('Error connecting to MySQL server.');
-?>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -36,19 +32,11 @@ or die('Error connecting to MySQL server.');
           <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
             <ul class="nav navbar-nav menu_nav justify-content-end">
               <li class="nav-item active"><a class="nav-link" href="index.php">Home</a></li>
-              <li class="nav-item"><a class="nav-link" href="menu.html">Menu</a>
+              <li class="nav-item"><a class="nav-link" href="menu.php">Menu</a>
               <li class="nav-item"><a class="nav-link" href="orderstatus.html">Order</a></li>
             </ul>
-              <form method="POST" action="index.php">
-           <input type="text" name="cflavour" placeholder="flavour.."/><br />
-              </form>
-              <div class="search-container">
-                  <form method="POST" action="index.php">
-                      <button><input type="submit" value="Search" name="SearchFlavour"></button>
-                  </form>
-              </div>
 
-          </div> 
+          </div>
         </div>
       </nav>
     </div>
@@ -90,126 +78,6 @@ or die('Error connecting to MySQL server.');
     </div>
   </section>
   <!--================Hero Banner Section end =================-->
-
-
-  <!--================Food menu section start =================-->  
-  <section class="section-margin">
-    <div class="container">
-      <div class="section-intro mb-75px">
-        <h4 class="intro-title">Cake Menu</h4>
-        <h2>Delicious cake</h2>
-      </div>
-      <div class="row">
-        <div class="col-lg-6">
-          <div class="media align-items-center food-card">
-            <img class="mr-3 mr-sm-4" src="img/home/red-velvet.jpg" alt="">
-            <div class="media-body">
-              <div class="d-flex justify-content-between food-card-title">
-                <h4>Red Velvet</h4>
-                <h3 class="price-tag">6' $35</h3>
-                <h3 class="price-tag">8' $55</h3>
-              </div>
-                <form>
-                    <p>Whales and darkness moving form cattle</p>
-                </form>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-6">
-          <div class="media align-items-center food-card">
-            <img class="mr-3 mr-sm-4" src="img/home/food1.png" alt="">
-            <div class="media-body">
-              <div class="d-flex justify-content-between food-card-title">
-                <h4>Roasted Marrow</h4>
-                <h3 class="price-tag">$32</h3>
-              </div>
-              <p>Whales and darkness moving form cattle</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-6">
-          <div class="media align-items-center food-card">
-            <img class="mr-3 mr-sm-4" src="img/home/food1.png" alt="">
-            <div class="media-body">
-              <div class="d-flex justify-content-between food-card-title">
-                <h4>Roasted Marrow</h4>
-                <h3 class="price-tag">$32</h3>
-              </div>
-              <p>Whales and darkness moving form cattle</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-6">
-          <div class="media align-items-center food-card">
-            <img class="mr-3 mr-sm-4" src="img/home/food1.png" alt="">
-            <div class="media-body">
-              <div class="d-flex justify-content-between food-card-title">
-                <h4>Roasted Marrow</h4>
-                <h3 class="price-tag">$32</h3>
-              </div>
-              <p>Whales and darkness moving form cattle</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-6">
-          <div class="media align-items-center food-card">
-            <img class="mr-3 mr-sm-4" src="img/home/food1.png" alt="">
-            <div class="media-body">
-              <div class="d-flex justify-content-between food-card-title">
-                <h4>Roasted Marrow</h4>
-                <h3 class="price-tag">$32</h3>
-              </div>
-              <p>Whales and darkness moving form cattle</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-6">
-          <div class="media align-items-center food-card">
-            <img class="mr-3 mr-sm-4" src="img/home/food1.png" alt="">
-            <div class="media-body">
-              <div class="d-flex justify-content-between food-card-title">
-                <h4>Roasted Marrow</h4>
-                <h3 class="price-tag">$32</h3>
-              </div>
-              <p>Whales and darkness moving form cattle</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-6">
-          <div class="media align-items-center food-card">
-            <img class="mr-3 mr-sm-4" src="img/home/food1.png" alt="">
-            <div class="media-body">
-              <div class="d-flex justify-content-between food-card-title">
-                <h4>Roasted Marrow</h4>
-                <h3 class="price-tag">$32</h3>
-              </div>
-              <p>Whales and darkness moving form cattle</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-6">
-          <div class="media align-items-center food-card">
-            <img class="mr-3 mr-sm-4" src="img/home/food1.png" alt="">
-            <div class="media-body">
-              <div class="d-flex justify-content-between food-card-title">
-                <h4>Roasted Marrow</h4>
-                <h3 class="price-tag">$32</h3>
-              </div>
-              <p>Whales and darkness moving form cattle</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!--================Food menu section end =================-->
 
 
 
@@ -319,30 +187,6 @@ or die('Error connecting to MySQL server.');
 						<li><a href="#">Terms of Service</a></li>
 					</ul>
 				</div>
-				<div class="col-xl-4 col-md-8 mb-4 mb-xl-0 single-footer-widget">
-					<h4>Newsletter</h4>
-          <p>You can trust us. we only send promo offers,</p>
-          
-          <div class="form-wrap" id="mc_embed_signup">
-            <form target="_blank" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
-            method="get">
-              <div class="input-group">
-                <input type="email" class="form-control" name="EMAIL" placeholder="Your Email Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Email Address '">
-                <div class="input-group-append">
-                  <button class="btn click-btn" type="submit">
-                    <i class="ti-arrow-right"></i>
-                  </button>
-                </div>
-              </div>
-              <div style="position: absolute; left: -5000px;">
-								<input name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value="" type="text">
-							</div>
-
-							<div class="info"></div>
-            </form>
-          </div>
-          
-				</div>
 			</div>
 			<div class="footer-bottom row align-items-center text-center text-lg-left">
 				<p class="footer-text m-0 col-lg-8 col-md-12"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
@@ -353,29 +197,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	</footer>
   <!-- ================ End footer Area ================= -->
 
-<script>
-    var attempt = 3; // Variable to count number of attempts.
-    // Below function Executes on click of login button.
-    function validate(){
-        var username = document.getElementById("username").value;
-        var password = document.getElementById("password").value;
-        if ( username == "Formget" && password == "formget#123"){
-            alert ("Login successfully");
-            window.location = "orderstatus.html"; // Redirecting to other page.
-            return false;
-        }
-        else{
-            attempt --;// Decrementing by one.
-            alert("You have left "+attempt+" attempt;");
-// Disabling fields after 3 attempts.
-            if( attempt == 0){
-                document.getElementById("username").disabled = true;
-                document.getElementById("password").disabled = true;
-                document.getElementById("submit").disabled = true;
-                return false;
-            }
-        }
-    }</script>
   <script src="vendors/jquery/jquery-3.2.1.min.js"></script>
   <script src="vendors/bootstrap/bootstrap.bundle.min.js"></script>
   <script src="vendors/owl-carousel/owl.carousel.min.js"></script>
@@ -387,32 +208,4 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 </body>
 </html>
 
-<?php
-//if (array_key_exists('SearchFlavour', $_POST)) {
-//// Get values from the user and insert data into
-//// the table.
-//    $tuple = array(
-//        ":bind1" => $_POST['flavour'],
-//    );
-//    $alltuples = array(
-//        $tuple
-//    );
-//    mysqli_query($query, $alltuples);
-//}
-if (isset($_POST['cflavour'])){
-    $flavour = mysqli_real_escape_string($db, $_POST['cflavour']);
-    $query = "SELECT * FROM CakeType WHERE flavour = '{$flavour}' ";
-    mysqli_query($db, $query) or die('Error querying database.');
 
-    $result = mysqli_query($db, $query);
-    $row = mysqli_fetch_array($result);
-
-    while ($row = mysqli_fetch_array($result)) {
-        echo $row['flavour'] . ' ' . $row['cname'] . ': ' . $row['ingredients'] . ' ' . $row['topping'] .'<br />';
-    }
-}else{
-    echo 'wrong';
-}
-
-
-?>
