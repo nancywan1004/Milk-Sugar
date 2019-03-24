@@ -235,34 +235,27 @@
 			$result2 = $conn->query($query2);
 			$result3 = $conn->query($query3);
 			
-			$counter = 150;
-			
 			if ($result2->num_rows > 0) {
 				// output data of each row
 				$row1 = $result2->fetch_assoc();
-				echo ''.$row1['cakeID'].'';
 				
 				if ($result3->num_rows > 0) {
 					$row2 = $result3->fetch_assoc();
 				// output data of each row
-					echo ''.$row2['price'].'';
+					
+					$_SESSION["counter"] = $row2['price'] + 1;
 					
 					$temp = $quantity * $row2['price'];
-					
-					
-					++$counter;
-					
-					echo ''.$temp.', '.$counter.', '.$quantity.', '.$order_date.', '.$row1['cakeID'].'';
-
+										
 					$nothing = 'NULL';
 					
-					$query4 = "INSERT INTO cakeorder VALUES ('{$counter}', '{$quantity}', '{$order_date}', '{$temp}', '{$nothing}', pending, '{$row1['cakeID']}')";
+					$query4 = "INSERT INTO cakeorder VALUES ('{$_SESSION["counter"]}', '{$quantity}', '{$order_date}', '{$temp}', '{$nothing}', 'pending', '{$row1['cakeID']}')";
 					
 					$result4 = $conn->query($query4);
 					
-					echo ''.$conn->affected_rows.'';
-					if ($conn->affected_rows == 1)
-						echo 'success';
+					if ($conn->affected_rows == 1) {
+						echo 'Success!'; 
+					}
 				} else {
 					echo 'Please fill in all fields.';
 				}
