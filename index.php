@@ -224,6 +224,8 @@
 			$user_phone = (isset($_GET['user_phone']) ? $_GET['user_phone'] : null);
 			$cake_name = (isset($_GET['cake_name']) ? $_GET['cake_name'] : null);
 			$cake_size = (isset($_GET['cake_size']) ? $_GET['cake_size'] : null);
+			$quantity = (isset($_GET['quantity']) ? $_GET['quantity'] : null);
+			$order_date = (isset($_GET['order_date']) ? $_GET['order_date'] : null);
 
 			$query1 = "INSERT INTO customer1 VALUES ('{$user_name}', '{$user_address}', '{$user_phone}');";
 			$query2 = "SELECT cakeID FROM cake WHERE cname = '{$cake_name}' and size = '{$cake_size}'"; 
@@ -232,6 +234,8 @@
 			$result1 = $conn->query($query1);
 			$result2 = $conn->query($query2);
 			$result3 = $conn->query($query3);
+			
+			$counter = 150;
 			
 			if ($result2->num_rows > 0) {
 				// output data of each row
@@ -242,6 +246,23 @@
 					$row2 = $result3->fetch_assoc();
 				// output data of each row
 					echo ''.$row2['price'].'';
+					
+					$temp = $quantity * $row2['price'];
+					
+					
+					++$counter;
+					
+					echo ''.$temp.', '.$counter.', '.$quantity.', '.$order_date.', '.$row1['cakeID'].'';
+
+					$nothing = 'NULL';
+					
+					$query4 = "INSERT INTO cakeorder VALUES ('{$counter}', '{$quantity}', '{$order_date}', '{$temp}', '{$nothing}', pending, '{$row1['cakeID']}')";
+					
+					$result4 = $conn->query($query4);
+					
+					echo ''.$conn->affected_rows.'';
+					if ($conn->affected_rows == 1)
+						echo 'success';
 				} else {
 					echo 'Please fill in all fields.';
 				}
