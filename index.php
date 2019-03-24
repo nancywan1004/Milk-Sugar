@@ -33,7 +33,7 @@
             <ul class="nav navbar-nav menu_nav justify-content-end">
               <li class="nav-item active"><a class="nav-link" href="index.php">Home</a></li>
               <li class="nav-item"><a class="nav-link" href="menu.php">Menu</a>
-              <li class="nav-item"><a class="nav-link" href="orderstatus.html">Order</a></li>
+              <li class="nav-item"><a class="nav-link" href="orderstatus.php">Order</a></li>
             </ul>
 
           </div>
@@ -95,12 +95,12 @@
         </div>
         <div class="col-md-6 offset-xl-2 col-xl-5">
           <div class="search-wrapper">
-            <h3>Order a cake</h3>
+            <h3>Want a cake?</h3>
 
-            <form class="search-form" action="#">
+            <form class="search-form" action="index.php">
               <div class="form-group">
                 <div class="input-group">
-                  <input type="text" class="form-control" placeholder="Your Name">
+                  <input type="text" class="form-control" placeholder="Your Name" name="user_name">
                   <div class="input-group-append">
                     <span class="input-group-text"><i class="ti-user"></i></span>
                   </div>
@@ -108,7 +108,7 @@
               </div>
               <div class="form-group">
                 <div class="input-group">
-                  <input type="text" class="form-control" placeholder="Email Address">
+                  <input type="text" class="form-control" placeholder="Your Address" name="user_address">
                   <div class="input-group-append">
                     <span class="input-group-text"><i class="ti-email"></i></span>
                   </div>
@@ -116,7 +116,7 @@
               </div>
               <div class="form-group">
                 <div class="input-group">
-                  <input type="text" class="form-control" placeholder="Phone Number">
+                  <input type="text" class="form-control" placeholder="Your Phone Number" name="user_phone">
                   <div class="input-group-append">
                     <span class="input-group-text"><i class="ti-headphone-alt"></i></span>
                   </div>
@@ -124,24 +124,78 @@
               </div>
               <div class="form-group">
                 <div class="input-group">
-                  <input type="text" class="form-control" placeholder="Select Date">
+                  <input type="text" class="form-control" placeholder="Cake Name" name="cake_name">
                   <div class="input-group-append">
-                    <span class="input-group-text"><i class="ti-notepad"></i></span>
+                    <span class="input-group-text"><i class="ti-user"></i></span>
+                  </div>
+                </div>
+              </div>
+			  <div class="form-group">
+                <div class="input-group">
+                  <input type="text" class="form-control" placeholder="Cake Size" name="cake_size">
+                  <div class="input-group-append">
+                    <span class="input-group-text"><i class="ti-user"></i></span>
+                  </div>
+                </div>
+              </div>
+			  <div class="form-group">
+                <div class="input-group">
+                  <input type="text" class="form-control" placeholder="Number of Cakes" name="quantity">
+                  <div class="input-group-append">
+                    <span class="input-group-text"><i class="ti-email"></i></span>
                   </div>
                 </div>
               </div>
               <div class="form-group">
                 <div class="input-group">
-                  <input type="text" class="form-control" placeholder="Select People">
+                  <input type="text" class="form-control" placeholder="Today's Date (yyyy-mm-dd)" name="order_date">
                   <div class="input-group-append">
-                    <span class="input-group-text"><i class="ti-layout-column3"></i></span>
+                    <span class="input-group-text"><i class="ti-email"></i></span>
                   </div>
                 </div>
               </div>
+			  
               <div class="form-group form-group-position">
-                <button class="button border-0" type="submit">Make Reservation</button>
+                <button class="button border-0" type="submit">Submit</button>
               </div>
             </form>
+			
+			<?php
+			include 'connect.php';
+			$conn = OpenCon();
+
+			$user_name = (isset($_GET['user_name']) ? $_GET['user_name'] : null);
+			$user_address = (isset($_GET['user_address']) ? $_GET['user_address'] : null);
+			$user_phone = (isset($_GET['user_phone']) ? $_GET['user_phone'] : null);
+			$cake_name = (isset($_GET['cake_name']) ? $_GET['cake_name'] : null);
+			$cake_size = (isset($_GET['cake_size']) ? $_GET['cake_size'] : null);
+
+			$query1 = "INSERT INTO customer1 VALUES ('{$user_name}', '{$user_address}', '{$user_phone}');";
+			$query2 = "SELECT cakeID FROM cake WHERE cname = '{$cake_name}' and size = '{$cake_size}'"; 
+			$query3 = "SELECT price FROM cakeprice WHERE cname = '{$cake_name}' and size = '{$cake_size}'"; 
+			
+			$result1 = $conn->query($query1);
+			$result2 = $conn->query($query2);
+			$result3 = $conn->query($query3);
+			
+			if ($result2->num_rows > 0) {
+				// output data of each row
+				$row1 = $result2->fetch_assoc();
+				echo ''.$row1['cakeID'].'';
+				
+				if ($result3->num_rows > 0) {
+					$row2 = $result3->fetch_assoc();
+				// output data of each row
+					echo ''.$row2['price'].'';
+				} else {
+					echo 'Please fill in all fields.';
+				}
+			} else {
+				echo 'Please fill in all fields.';
+			}
+			
+			CloseCon($conn);
+			?>
           </div>
         </div>
       </div>

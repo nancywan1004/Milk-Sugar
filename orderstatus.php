@@ -1,10 +1,10 @@
-
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Sneaky Restaurant - Menu</title>
+  <title>Milk & Sugar - Track your order</title>
 	<link rel="icon" href="img/Fevicon.png" type="image/png">
 
   <link rel="stylesheet" href="vendors/bootstrap/bootstrap.min.css">
@@ -14,12 +14,10 @@
   <link rel="stylesheet" href="vendors/Magnific-Popup/magnific-popup.css">
 
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/menu.css">
 </head>
 <body>
 
   <!--================ Header Menu Area start =================-->
-
   <header class="header_area">
     <div class="main_menu">
       <nav class="navbar navbar-expand-lg navbar-light">
@@ -34,110 +32,114 @@
           <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
             <ul class="nav navbar-nav menu_nav justify-content-end">
               <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
-              <li class="nav-item active"><a class="nav-link" href="menu.php">Menu</a>
-              <li class="nav-item"><a class="nav-link" href="orderstatus.php">Order</a></li>
+              <li class="nav-item"><a class="nav-link" href="menu.php">Menu</a>
+							</li>
+              <li class="nav-item active"><a class="nav-link" href="orderstatus.php">Order</a></li>
             </ul>
-
-          </div>
+          </div> 
         </div>
       </nav>
     </div>
   </header>
   <!--================Header Menu Area =================-->
 
-  <!--================Food menu section start =================-->
+  <!--================Hero Banner Section start =================-->
+  <section class="hero-banner hero-banner-sm">
+    <div class="hero-wrapper">
+      <div class="hero-left">
+        <h1 class="hero-title">Track Your Order</h1>
+        <ul class="hero-info d-none d-md-block">
+          <li>
+            <img src="img/banner/fas-service-icon.png" alt="">
+            <h4>Fast Service</h4>
+          </li>
+          <li>
+            <img src="img/banner/fresh-cake-icon.png" alt="">
+            <h4>Fresh Cake</h4>
+          </li>
+        </ul>
+      </div>
+      <div class="hero-right">
+
+        <div class="jslogin">
+          <form id="form_id" method="post" name="myform">
+			<h3>Log In</h3>
+            <label>User Name :</label>
+            <input type="text" name="username" id="username"/>
+            <label>Password :</label>
+            <input type="password" name="password" id="password"/>
+            <h3><input type="button" value="Login" id="submit" onclick="validate()" class="button"/></h3>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--================Hero Banner Section end =================-->
+
+
+  <!-- ================ contact section start ================= -->
   <section class="section-margin">
     <div class="container">
-      <div class="section-intro mb-75px">
-        <h4 class="intro-title">Cake Menu</h4>
-        <h2>Delicious cake</h2>
-      </div>
-   <!--     selection of flavour                      -->
-      <form class="form-inline menu_filter" method="POST" action="menu.php">
-
-          <div class="row">
-              <div class="form-group input-flavour">
-                  <div class="col-12">
-                    <h5>Choose your flavour: </h5>
-                    <select name="cakeflavour" >
-                    <option selected hidden value="none">Flavours</option>
-                    <option value="chocolate">Chocolate</option>
-                    <option value="matcha">Matcha</option>
-                    <option value="strawberry">Strawberry</option>
-                    <option value="coffee">Coffee</option>
-                    </select>
-                    <input type='submit' class="button button-contactForm" >
-                  </div>
-          </div>
-          </div>
-      </form>
-
-
       <div class="row">
-  <!-- all menu from database -->
-        <?php
-        include 'connect.php';
-        $conn = OpenCon();
-
-
-        @$flavour = $_POST['cakeflavour'];
-
-        if (empty($flavour) or $flavour == "none") {
-          $sql = "SELECT c.cakeID cakeID,c.cname cname, c.size size, c.price price, ct.ingredients ingredients
-                  FROM allcake c, CakeType ct
-                  WHERE c.cname = ct.cname
-                  ORDER by c.cname";
-        } else {
-          $sql = "SELECT c.cakeID cakeID,c.cname cname, c.size size, c.price price, ct.ingredients ingredients
-                  FROM allcake c, CakeType ct
-                  WHERE c.cname = ct.cname AND ct.flavour = '$flavour'
-                  ORDER by c.cname";
-        }
-
-        $allCake = $conn->query($sql);
-
-        if ($allCake->num_rows > 0) {
-        // output data of each row
-        while($row = $allCake->fetch_assoc()) {
-          echo '<div class="col-lg-6">
-              <div class="media align-items-center food-card">
-                <img class="mr-3 mr-sm-4 cakeimg" src="img/home/cakeimg/'.$row['cakeID'].'.png" alt="">
-                <div class="media-body">
-                  <div class="d-flex justify-content-between food-card-title">
-                    <h4>'.$row["cname"].'</h4>
-                    <h3 class="price-tag">'.$row['size'].'\' &nbsp  $'.$row['price'].'</h3>
-                  </div>
-                  <form>
-                    <p>'.$row['ingredients'].'</p>
-                  </form>
+        <div class="col-12">
+          <h2 class="contact-title">Your Order Information</h2>
+        </div>
+        <div class="col-lg-8">
+          <form class="form-contact contact_form">
+            <div class="row">
+              <div class="col-12">
+                <div class="form-group">
+                    <input class="form-control" name="confirm#" id="confirm#" type="text" placeholder="Enter Confirmation #">
                 </div>
               </div>
-            </div>';
-         }
-        }
+            </div>
+            <div class="form-group mt-3">
+              <button type="submit" class="button button-contactForm">Submit</button>
+            </div>
+          </form>
+		  
+			<?php
+			include 'connect.php';
+			$conn = OpenCon();
 
+			$user_confirm = (isset($_GET['confirm#']) ? $_GET['confirm#'] : null);
 
-        CloseCon($conn);
-        ?>
+			$query = "SELECT confirmNum, orderDate, status FROM cakeorder WHERE confirmNum = '{$user_confirm}'";
 
+			$result = $conn->query($query);
+			if ($result->num_rows > 0) {
+
+				// output data of each row
+				while($row = $result->fetch_assoc()) {
+					echo '<div class="col-lg-6">
+						  <div class="media align-items-center food-card">
+							<div class="media-body">
+							  <div class="d-flex justify-content-between food-card-title">
+								<h4>Confirmation #: '.$row["confirmNum"].'</h4>
+							  </div>
+							  <h3 class="price-tag">Order Date: '.$row['orderDate'].'</h3>
+							  <form>
+								<p>STATUS: '.$row['status'].'</p>
+							  </form>
+							</div>
+						  </div>
+						</div>';
+				}
+				echo "</table>";
+			}
+			else {
+				echo "0 results";
+			}
+			CloseCon($conn);
+			?>
+
+        </div>
       </div>
     </div>
   </section>
-  <!--================Food menu section end =================-->
+	<!-- ================ contact section end ================= -->
 
-
-
-  <!--================CTA section start =================-->
-  <section class="cta-area text-center">
-    <div class="container">
-      <p>We offer a variety of authentic and trendy cakes</p>
-      <h2>You gotta try yourself!</h2>
-      <a class="button" href="index.php#reserve-section">Order Now</a>
-    </div>
-  </section>
-  <!--================CTA section end =================-->
-
-
+  
   <!-- ================ start footer Area ================= -->
   <footer class="footer-area section-gap">
 		<div class="container">
@@ -165,7 +167,7 @@
                         </div>
                     </div>
                 </div>
-				<!-- <div class="col-xl-2 col-sm-6 mb-4 mb-xl-0 single-footer-widget">
+				<div class="col-xl-2 col-sm-6 mb-4 mb-xl-0 single-footer-widget">
 					<h4>Quick Links</h4>
 					<ul>
 						<li><a href="#">Jobs</a></li>
@@ -173,8 +175,7 @@
 						<li><a href="#">Investor Relations</a></li>
 						<li><a href="#">Terms of Service</a></li>
 					</ul>
-				</div> -->
-
+				</div>
 			</div>
 			<div class="footer-bottom row align-items-center text-center text-lg-left">
 				<p class="footer-text m-0 col-lg-8 col-md-12"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
@@ -187,12 +188,37 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
 
 
-
+  <script>
+    var attempt = 3; // Variable to count number of attempts.
+    // Below function Executes on click of login button.
+    function validate(){
+      var username = document.getElementById("username").value;
+      var password = document.getElementById("password").value;
+      if ( username == "Formget" && password == "formget#123"){
+        alert ("Login successfully");
+        window.location = "orderstatus.php"; // Redirecting to other page.
+        return false;
+      }
+      else{
+        attempt --;// Decrementing by one.
+        alert("You have left "+attempt+" attempt;");
+// Disabling fields after 3 attempts.
+        if( attempt == 0){
+          document.getElementById("username").disabled = true;
+          document.getElementById("password").disabled = true;
+          document.getElementById("submit").disabled = true;
+          return false;
+        }
+      }
+    }</script>
   <script src="vendors/jquery/jquery-3.2.1.min.js"></script>
   <script src="vendors/bootstrap/bootstrap.bundle.min.js"></script>
   <script src="vendors/owl-carousel/owl.carousel.min.js"></script>
   <script src="vendors/nice-select/jquery.nice-select.min.js"></script>
   <script src="vendors/Magnific-Popup/jquery.magnific-popup.min.js"></script>
+  <script src="js/jquery.form.js"></script>
+  <script src="js/jquery.validate.min.js"></script>
+  <script src="js/contact.js"></script>
   <script src="js/jquery.ajaxchimp.min.js"></script>
   <script src="js/mail-script.js"></script>
   <script src="js/main.js"></script>
