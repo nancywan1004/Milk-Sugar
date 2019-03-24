@@ -20,12 +20,12 @@ button:focus{outline:0 !important;box-shadow:none !important}
 
 .hero-wrapper .hero-right .jslogin{
     width: 300px;
-    padding: 10px 30px 25px;
+    padding: 25px 30px 25px;
     border: 2px solid gray;
     border-radius: 12px;
     font-family: raleway;
     float:right;
-    margin-top:50px;
+    margin:50px;
     margin-right: 350px;
 
 }

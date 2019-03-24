@@ -32,9 +32,9 @@
           <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
             <ul class="nav navbar-nav menu_nav justify-content-end">
               <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
-              <li class="nav-item"><a class="nav-link" href="menu.php">Menu</a>
+              <li class="nav-item"><a class="nav-link" href="menu.php">Our Menu</a>
 							</li>
-              <li class="nav-item active"><a class="nav-link" href="orderstatus.html">Order</a></li>
+              <li class="nav-item active"><a class="nav-link" href="orderstatus.php">Track Your Cake</a></li>
             </ul>
           </div> 
         </div>
@@ -62,13 +62,13 @@
       <div class="hero-right">
 
         <div class="jslogin">
-          <h3>Login</h3>
           <form id="form_id" method="post" name="myform">
+			<h3>Log In</h3>
             <label>User Name :</label>
             <input type="text" name="username" id="username"/>
             <label>Password :</label>
             <input type="password" name="password" id="password"/>
-            <input type="button" value="Login" id="submit" onclick="validate()"/>
+            <h3><input type="button" value="Login" id="submit" onclick="validate()" class="button"/></h3>
           </form>
         </div>
       </div>
@@ -99,28 +99,39 @@
           </form>
 		  
 			<?php
-include 'connect.php';
-$conn = OpenCon();
+			include 'connect.php';
+			$conn = OpenCon();
 
-$user_confirm = (isset($_GET['confirm#']) ? $_GET['confirm#'] : null);
+			$user_confirm = (isset($_GET['confirm#']) ? $_GET['confirm#'] : null);
 
-$query = "SELECT confirmNum, pquantity, orderDate, status FROM cakeorder WHERE confirmNum = '{$user_confirm}'";
+			$query = "SELECT confirmNum, orderDate, status FROM cakeorder WHERE confirmNum = '{$user_confirm}'";
 
-$result = $conn->query($query);
-if ($result->num_rows > 0) {
-    echo "<table><tr><th class='border-class'>Your Confirmation Number</th><th class='border-class'>Quantity</th><th class='border-class'>Order Date</th><th class='border-class'>Status</th></tr>";
+			$result = $conn->query($query);
+			if ($result->num_rows > 0) {
 
-    // output data of each row
-    while($row = $result->fetch_assoc()) {
-        echo "<tr><td class='border-class'>".$row["confirmNum"]."</td><td class='border-class'>".$row["pquantity"]."</td><td class='border-class'>".$row["orderDate"]."</td><td class='border-class'>".$row["status"]."</td></tr>";
-    }
-    echo "</table>";
-}
-else {
-    echo "0 results";
-}
-CloseCon($conn);
-?>
+				// output data of each row
+				while($row = $result->fetch_assoc()) {
+					echo '<div class="col-lg-6">
+						  <div class="media align-items-center food-card">
+							<div class="media-body">
+							  <div class="d-flex justify-content-between food-card-title">
+								<h4>Confirmation #: '.$row["confirmNum"].'</h4>
+							  </div>
+							  <h3 class="price-tag">Order Date: '.$row['orderDate'].'</h3>
+							  <form>
+								<p>STATUS: '.$row['status'].'</p>
+							  </form>
+							</div>
+						  </div>
+						</div>';
+				}
+				echo "</table>";
+			}
+			else {
+				echo "0 results";
+			}
+			CloseCon($conn);
+			?>
 
         </div>
       </div>
@@ -185,7 +196,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
       var password = document.getElementById("password").value;
       if ( username == "Formget" && password == "formget#123"){
         alert ("Login successfully");
-        window.location = "orderstatus.html"; // Redirecting to other page.
+        window.location = "orderstatus.php"; // Redirecting to other page.
         return false;
       }
       else{

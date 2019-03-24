@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Sneaky Restaurant - Menu</title>
+  <title>Milk & Sugar - Menu</title>
 	<link rel="icon" href="img/Fevicon.png" type="image/png">
 
   <link rel="stylesheet" href="vendors/bootstrap/bootstrap.min.css">
@@ -34,8 +34,8 @@
           <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
             <ul class="nav navbar-nav menu_nav justify-content-end">
               <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
-              <li class="nav-item active"><a class="nav-link" href="menu.php">Menu</a>
-              <li class="nav-item"><a class="nav-link" href="orderstatus.html">Order</a></li>
+              <li class="nav-item active"><a class="nav-link" href="menu.php">Our Menu</a>
+              <li class="nav-item"><a class="nav-link" href="orderstatus.php">Track Your Cake</a></li>
             </ul>
 
           </div>
@@ -60,13 +60,13 @@
                   <div class="col-12">
                     <h5>Choose your flavour: </h5>
                     <select name="cakeflavour" >
-                    <option selected hidden value="none">ALL MY FLAVOUR</option>
+                    <option selected hidden value="none">Flavours</option>
                     <option value="chocolate">Chocolate</option>
                     <option value="matcha">Matcha</option>
                     <option value="strawberry">Strawberry</option>
                     <option value="coffee">Coffee</option>
                     </select>
-                    <input type='submit'  >
+                    <input type='submit' class="button button-contactForm" >
                   </div>
           </div>
           </div>
@@ -84,12 +84,12 @@
 
         if (empty($flavour) or $flavour == "none") {
           $sql = "SELECT c.cakeID cakeID,c.cname cname, c.size size, c.price price, ct.ingredients ingredients
-                  FROM allcake c, CakeType ct
+                  FROM Cake c, CakeType ct
                   WHERE c.cname = ct.cname
                   ORDER by c.cname";
         } else {
           $sql = "SELECT c.cakeID cakeID,c.cname cname, c.size size, c.price price, ct.ingredients ingredients
-                  FROM allcake c, CakeType ct
+                  FROM Cake c, CakeType ct
                   WHERE c.cname = ct.cname AND ct.flavour = '$flavour'
                   ORDER by c.cname";
         }
@@ -114,7 +114,9 @@
               </div>
             </div>';
          }
-        }
+       }else {
+         echo 'Sorry, all cakes are sold out.';
+       }
 
 
         CloseCon($conn);
