@@ -70,7 +70,7 @@
             <div class="col-12">
                 <h2 class="contact-title">Payment Details</h2>
                 <h4>
-                    total price:
+                    Total Price: $
                     <?php
                     include 'connect.php';
                     $conn = OpenCon();
@@ -98,24 +98,27 @@
                 </form>
 <?php
 @$method = $_POST['method'];
-
 if (empty($method) or $method == "none") {
     echo "Choose your payment method!";
 }else{
     $query1 = "SELECT confirmNum FROM CakeOrder where totalPrice = '$totalprice'";
     $confirmNum = $conn->query($query1);
+    $pid = rand(1,100);
+	
+	static $temp;
+
     if($confirmNum->num_rows > 0){
         while ($row = $confirmNum->fetch_assoc()) {
-            $query2 = "INSERT INTO Payment_Paid($row, NULL, $pmethod) SELECT p2.confirmNum, p1.pid, p1.pmethod from Payment_Paid1 p1 inner join Payment_Paid2 p2 on p1.pid = p2.pid";
+            $query2 = "INSERT INTO Payment_Paid2 VALUES('{$row['confirmNum']}', '{$pid}' , '{$method}')";
             $conn->query($query2);
+			$temp = $row['confirmNum'];
         }
-        echo 'Your payment info: <p>'.$row.'\' &nbsp  $</p>';
+		
+        if($conn->affected_rows == 1){
+            echo 'Success! Your confirmation number is: <strong>#'.$temp.'</strong>';
+        }
     }
-
+	
 }
-
-
-
-
 CloseCon($conn);
 ?>
