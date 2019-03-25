@@ -1,3 +1,6 @@
+<?php
+ob_start(); // Initiate the output buffer
+?>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -154,7 +157,7 @@
           <div class="search-wrapper">
             <h3>You want it, you got it.</h3>
 
-            <form class="search-form" action="payment.php">
+            <form class="search-form" action="index.php">
               <div class="form-group">
                 <div class="input-group">
                   <input type="text" class="form-control" placeholder="Your Name" name="user_name">
@@ -222,9 +225,10 @@
 			  
               <div class="form-group form-group-position">
                 <button class="button border-0" type="submit">Submit</button>
+                  <button class="button border-0" type="submit"><a href="payment.php">Pay</a></button>
               </div>
             </form>
-			
+
 			<?php
 			$user_name = (isset($_GET['user_name']) ? $_GET['user_name'] : null);
 			$user_address = (isset($_GET['user_address']) ? $_GET['user_address'] : null);
@@ -235,9 +239,9 @@
 			$order_date = (isset($_GET['order_date']) ? $_GET['order_date'] : null);
             $password = (isset($_GET['password']) ? $_GET['password'] : null);
 
-			$query1 = "INSERT INTO customer1 VALUES ('{$user_name}', '{$user_address}', '{$user_phone}','{$password}');";
+			$query1 = "INSERT INTO customer1 VALUES ('{$user_name}', '{$user_address}', '{$user_phone}', '{$password}');";
 			$query2 = "SELECT cakeID FROM cake WHERE cname = '{$cake_name}' and size = '{$cake_size}'"; 
-			$query3 = "SELECT price FROM cakeprice WHERE cname = '{$cake_name}' and size = '{$cake_size}'"; 
+			$query3 = "SELECT price FROM CakePrice WHERE cname = '{$cake_name}' and size = '{$cake_size}'";
 			
 			$result1 = $conn->query($query1);
 			$result2 = $conn->query($query2);
@@ -257,12 +261,13 @@
 										
 					$nothing = 'NULL';
 					
-					$query4 = "INSERT INTO cakeorder VALUES ('{$_SESSION["counter"]}', '{$quantity}', '{$order_date}', '{$temp}', '{$nothing}', 'pending', '{$row1['cakeID']}')";
+					$query4 = "INSERT INTO CakeOrder VALUES ('{$_SESSION["counter"]}', '{$quantity}', '{$order_date}', '{$temp}', NULL, 'pending', '{$row1['cakeID']}')";
 					
 					$result4 = $conn->query($query4);
-					
+
+
 					if ($conn->affected_rows == 1) {
-						echo 'Success!'; 
+                        setcookie('mycookie',$temp);
 					}
 				} else {
 					echo 'Please fill in all fields.';
@@ -270,12 +275,6 @@
 			} else {
 				echo 'Please fill in all fields.';
 			}
-//            $_SESSION['totalprice'] = $temp;
-//            if (session_status() == PHP_SESSION_NONE) {session_start();}
-//            if (!isset($_SESSION['totalprice'])) {
-//                header('Location: payment.php');
-//                exit();// <-- terminates the current script
-//            }
 			?>
           </div>
         </div>
@@ -342,13 +341,17 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
   <script src="js/main.js"></script>
 </body>
 </html>
-
 <?php
-$custName = (isset($_GET['custName']) ? $_GET['custName'] : null);
-$address = (isset($_GET['address']) ? $_GET['address'] : null);
-$phonenum = (isset($_GET['phonenum']) ? $_GET['phonenum'] : null);
-$deldate = (isset($_GET['deldate']) ? $_GET['deldate'] : null);
-$addname = "INSERT INTO Customer1 VALUES('{$custName}','{$address}','{$phonenum}','{$password}')";
-$newCust = $conn->query($addname);
+ob_end_flush(); // Flush the output from the buffer
 CloseCon($conn);
 ?>
+
+
+<!--//$custName = (isset($_GET['custName']) ? $_GET['custName'] : null);-->
+<!--//$address = (isset($_GET['address']) ? $_GET['address'] : null);-->
+<!--//$phonenum = (isset($_GET['phonenum']) ? $_GET['phonenum'] : null);-->
+<!--//$deldate = (isset($_GET['deldate']) ? $_GET['deldate'] : null);-->
+<!--//$addname = "INSERT INTO Customer1 VALUES('{$custName}','{$address}','{$phonenum}','{$password}')";-->
+<!--//$newCust = $conn->query($addname);-->
+
+

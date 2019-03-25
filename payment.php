@@ -74,33 +74,45 @@
                     <?php
                     include 'connect.php';
                     $conn = OpenCon();
-                    if ($result3->num_rows > 0) {
-                        $row2 = $result3->fetch_assoc();
-                        if ($result3->num_rows > 0) {
-                            $temp = $quantity * $row2['price'];
-                            echo "$temp";
-                        }
-                        else echo "Failed";
-                    }
-                    else echo "Failed";
+                    $totalprice = (isset($_COOKIE['mycookie']) ? $_COOKIE['mycookie']: null);
+                    echo $totalprice;
+//
                     ?>
                 </h4>
             </div>
             <div class="col-lg-8">
-                <form class="form-contact contact_form">
+                <form class="form-contact contact_form" method="post" action="payment.php">
                     <div class="row">
                         <div class="col-12">
-                            <div class="form-group">
-                                <input class="form-control" name="confirm#" id="confirm#" type="text" placeholder="Enter Confirmation #">
-                            </div>
+                            <h4>Select Payment Method: </h4>
+                            <select name="method" >
+                                <option selected hidden value="none">Method</option>
+                                <option value="Master Card">Master Card</option>
+                                <option value="Credit Card">Credit Card</option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group mt-3">
-                        <button type="submit" class="button button-contactForm">Submit</button>
+                        <button type="submit" class="button button-contactForm">Pay</button>
                     </div>
                 </form>
 <?php
+@$method = $_POST['method'];
 
+if (empty($method) or $method == "none") {
+    echo "Choose your payment method!";
+}else{
+    $query1 = "SELECT confirmNum FROM CakeOrder where totalPrice = '$totalprice'";
+    $confirmNum = $conn->query($query1);
+    if($confirmNum->num_rows > 0){
+        while ($row = $confirmNum->fetch_assoc()) {
+            $query2 = "INSERT INTO Payment_Paid($row, NULL, $pmethod) SELECT p2.confirmNum, p1.pid, p1.pmethod from Payment_Paid1 p1 inner join Payment_Paid2 p2 on p1.pid = p2.pid";
+            $conn->query($query2);
+        }
+        echo 'Your payment info: <p>'.$row.'\' &nbsp  $</p>';
+    }
+
+}
 
 
 
