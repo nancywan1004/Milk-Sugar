@@ -267,13 +267,16 @@ ob_start(); // Initiate the output buffer
 
 
 					if ($conn->affected_rows == 1) {
+					    echo 'Click Pay';
                         setcookie('mycookie',$temp);
+                        setcookie('mycookie2',$user_address);
+                        setcookie('mycookie3',$user_phone);
 					}
 				} else {
-					echo 'Please fill in all fields.';
+					echo 'Please fill in all fields. Click Submit when done.';
 				}
 			} else {
-				echo 'Please fill in all fields.';
+				echo 'Please fill in all fields. Click Submit when done.';
 			}
 			?>
           </div>

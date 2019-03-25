@@ -70,11 +70,18 @@
             <div class="col-12">
                 <h2 class="contact-title">Payment Details</h2>
                 <h4>
-                    total price:
+                    Total Price: $
                     <?php
                     include 'connect.php';
                     $conn = OpenCon();
                     $totalprice = (isset($_COOKIE['mycookie']) ? $_COOKIE['mycookie']: null);
+                    $useraddress = (isset($_COOKIE['mycookie2']) ? $_COOKIE['mycookie2']: null);
+                    $userphone = (isset($_COOKIE['mycookie3']) ? $_COOKIE['mycookie3']: null);
+                    @$dmethod = $_POST['dmethod'];
+                    if ($dmethod == "Home Delivery") {
+                        $totalprice = $totalprice + 5;
+                    }
+
                     echo $totalprice;
 //
                     ?>
@@ -83,6 +90,15 @@
             <div class="col-lg-8">
                 <form class="form-contact contact_form" method="post" action="payment.php">
                     <div class="row">
+                        <div class="col-12">
+                            <h4>Select Delivery Method: </h4>
+                            <select name="dmethod">
+                                <option selected hidden value="none">Method</option>
+                                <option value="Home Delivery">Home Delivery</option>
+                                <option value="Pick Up Yourself">Pick Up Yourself</option>
+                            </select>
+                        </div>
+                        <input class="form-control" type="text" id="deldate" name="deldate" placeholder="Deliverydate..">
                         <div class="col-12">
                             <h4>Select Payment Method: </h4>
                             <select name="method" >
@@ -96,29 +112,60 @@
                         <button type="submit" class="button button-contactForm">Pay</button>
                     </div>
                 </form>
+            </div>
+        </div>
+        <div class="row">
 <?php
 @$method = $_POST['method'];
 
+@$ddate = $_POST['deldate'];
+
 if (empty($method) or $method == "none") {
     echo "Choose your payment method!";
-}else{
+}else if (empty($dmethod) or $dmethod == "none"){
+    echo "Choose your delivery method!";
+}
+else{
     $query1 = "SELECT confirmNum FROM CakeOrder where totalPrice = '$totalprice'";
     $confirmNum = $conn->query($query1);
     $pid = rand(1,100);
+    static $temp;
+    if($dmethod == "Home Delivery"){
+        if (!empty($ddate)) {
+            $query4 = "UPDATE CakeOrder set totalPrice=totalPrice+5 where confirmNum = '$temp' ";
+            $query3 = "INSERT INTO Delivery_Fulfill VALUES('{$temp}','{$ddate}','{$useraddress}','{$userphone}')";
+            $conn->query($query4);
+            $conn->query($query3);
+            echo ''.$useraddress.'';
+        }
+        else echo "Enter your delivery date!";
+    }else  {
+       echo "Choose the location!";
+    }
+
     if($confirmNum->num_rows > 0){
         while ($row = $confirmNum->fetch_assoc()) {
             $query2 = "INSERT INTO Payment_Paid2 VALUES('{$row['confirmNum']}', '{$pid}' , '{$method}')";
             $conn->query($query2);
+            $temp = $row['confirmNum'];
         }
         if($conn->affected_rows == 1){
-            echo 'Success, Your payment info: <p>'.$row['confirmNum'].'</p>';
+            echo 'Success! Your confirmation number is: <strong>#'.$temp.'</strong>';
         }
     }
 
 }
-
-
-
-
 CloseCon($conn);
 ?>
+        </div>
+    </div>
+</section>
+<!--======Payment Section End=======-->
+<!--<script>-->
+<!--    function ChangeSelect() {-->
+<!--        if (document.getElementById("dmethod") == "Home Delivery" ){-->
+<!--            $totalprice = $totalprice + 5;-->
+<!--            window.location.reload(true);-->
+<!--        }-->
+<!--    }-->
+<!--</script>-->
