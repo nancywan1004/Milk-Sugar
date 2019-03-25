@@ -169,40 +169,36 @@
   <!-- ================ start footer Area ================= -->
   <footer class="footer-area section-gap">
 		<div class="container">
+			<h3> Find us at ... </h3>
 			<div class="row">
-                <div class="col-lg-4">
-                    <div class="media contact-info">
-                        <span class="contact-info__icon"><i class="ti-home"></i></span>
-                        <div class="media-body">
-                            <h3>Buttonwood, California.</h3>
-                            <p>Rosemead, CA 91770</p>
-                        </div>
+				<div class="media contact-info">
+                      <span class="contact-info__icon"><i class="ti-home"></i></span>
+                      <div class="media-body">
+                        <h3>310 Cambie St</h3>
+                        <p>Richmond, British Columbia</p>
+                      </div>
                     </div>
-                    <div class="media contact-info">
-                        <span class="contact-info__icon"><i class="ti-tablet"></i></span>
-                        <div class="media-body">
-                            <h3><a href="tel:454545654">00 (440) 9865 562</a></h3>
-                            <p>Mon to Fri 9am to 6pm</p>
-                        </div>
+					<div class="media contact-info">
+                      <span class="contact-info__icon"><i class="ti-home"></i></span>
+                      <div class="media-body">
+                        <h3>100 Denman St</h3>
+                        <p>Vancouver, British Columbia</p>
+                      </div>
                     </div>
-                    <div class="media contact-info">
-                        <span class="contact-info__icon"><i class="ti-email"></i></span>
-                        <div class="media-body">
-                            <h3><a href="mailto:support@colorlib.com">support@colorlib.com</a></h3>
-                            <p>Send us your query anytime!</p>
-                        </div>
+					<div class="media contact-info">
+                      <span class="contact-info__icon"><i class="ti-home"></i></span>
+                      <div class="media-body">
+                        <h3>415 Kingsway St</h3>
+                        <p>Burnaby, British Columbia</p>
+                      </div>
                     </div>
-                </div>
-				<!-- <div class="col-xl-2 col-sm-6 mb-4 mb-xl-0 single-footer-widget">
-					<h4>Quick Links</h4>
-					<ul>
-						<li><a href="#">Jobs</a></li>
-						<li><a href="#">Brand Assets</a></li>
-						<li><a href="#">Investor Relations</a></li>
-						<li><a href="#">Terms of Service</a></li>
-					</ul>
-				</div> -->
-
+					<div class="media contact-info">
+                      <span class="contact-info__icon"><i class="ti-home"></i></span>
+                      <div class="media-body">
+                        <h3>520 Fraser St</h3>
+                        <p>Vancouver, British Columbia</p>
+                      </div>
+                    </div>
 			</div>
 			<div class="footer-bottom row align-items-center text-center text-lg-left">
 				<p class="footer-text m-0 col-lg-8 col-md-12"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
