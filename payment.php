@@ -104,12 +104,15 @@ if (empty($method) or $method == "none") {
 }else{
     $query1 = "SELECT confirmNum FROM CakeOrder where totalPrice = '$totalprice'";
     $confirmNum = $conn->query($query1);
+    $pid = rand(1,100);
     if($confirmNum->num_rows > 0){
         while ($row = $confirmNum->fetch_assoc()) {
-            $query2 = "INSERT INTO Payment_Paid($row, NULL, $pmethod) SELECT p2.confirmNum, p1.pid, p1.pmethod from Payment_Paid1 p1 inner join Payment_Paid2 p2 on p1.pid = p2.pid";
+            $query2 = "INSERT INTO Payment_Paid2 VALUES('{$row['confirmNum']}', '{$pid}' , '{$method}')";
             $conn->query($query2);
         }
-        echo 'Your payment info: <p>'.$row.'\' &nbsp  $</p>';
+        if($conn->affected_rows == 1){
+            echo 'Success, Your payment info: <p>'.$row['confirmNum'].'</p>';
+        }
     }
 
 }
