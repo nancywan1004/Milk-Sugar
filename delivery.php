@@ -1,10 +1,10 @@
-
+<?php include 'functionphp/deliveryfunction.php'; ?>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Milk & Sugar - Menu</title>
+  <title>Milk & Sugar</title>
 	<link rel="icon" href="img/Fevicon.png" type="image/png">
 
   <link rel="stylesheet" href="vendors/bootstrap/bootstrap.min.css">
@@ -35,9 +35,9 @@
 
           <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
             <ul class="nav navbar-nav menu_nav justify-content-end">
-              <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
-              <li class="nav-item active"><a class="nav-link" href="menu.php">Our Menu</a>
-              <li class="nav-item"><a class="nav-link" href="orderstatus.php">Track Your Cake</a></li>
+              <!-- <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
+              <li class="nav-item "><a class="nav-link" href="menu.php">Our Menu</a> -->
+              <li class="nav-item"><a class="nav-link" href="index.php">Log Out</a></li>
             </ul>
 
           </div>
@@ -83,139 +83,19 @@
                include 'connect.php';
                $conn = OpenCon();
 
-
                @$transporterwork = $_POST['transporterwork'];
 
-
-
             // 1. check cake delivery order =====================
-               if ( $transporterwork === 'check') {
-                 $sql = "SELECT o.confirmNum confirmNum, c.phoneNum customerPhoneNum, d.del_date deliveryDate, d.del_location deliveryLocation
-from CakeOrder o, Contains cc, Customer2 c, Delivery_Fulfill d
-where o.confirmNum = cc.confirmNum and o.confirmNum = d.confirmNum and o.status = 'Cake is ready.' and c.custID = cc.custID
-order by deliveryDate";
-                $cakeorder = $conn->query($sql);
-                if ($cakeorder->num_rows > 0) {
-                  echo "<table style='text-align:center' class='ordertable table table-striped'>
-                            <thead>
-                              <tr>
-                                <th scope='col'>confrimNum</th>
-                                <th scope='col'>customerPhoneNum</th>
-                                <th scope='col'>deliveryDate</th>
-                                <th scope='col'>deliveryLocation</th>
-                              </tr>
-                            </thead>";
-
-                  while ($row = $cakeorder->fetch_assoc()) {
-                    echo   "<tbody>
-                                <tr>
-                                  <th scope='row'>".$row["confirmNum"]."</th>
-                                  <td>".$row["customerPhoneNum"]."</td>
-                                  <td>".$row["deliveryDate"]."</td>
-                                  <td>".$row["deliveryLocation"]."</td>
-                                </tr>
-                              </tbody>";
-                  }
-                  echo "</table>";
-
-                } else {
-                  echo "<h4>Bad business today...</h4>";
-                }
-             //  2. update cake delivery order status=================
-              } else if ($transporterwork === "updateorder") {
-                echo "<h4>Please insert the confirm number to update cake status:</h4>
-
-                <form action='delivery.php' method='POST'>
-                    <div class='updateorder form-row align-items-center'>
-                      <div class='col-auto'>
-
-                        <input type='Number' name='confirmNum' class='form-control mb-2' id='inlineFormInput' placeholder='Confirm Number'>
-                      </div>
-
-                      <div class='col-auto'>
-                        <button type='submit' class='btn btn-primary mb-2 bakerupdateorder'>Update Cake Status</button>
-                      </div>
-                    </div>
-                  </form>";
-             // 3. update delivery person info====================
-           } else if ($transporterwork === "updatephonenum") {
-                echo " <h4>Please insert your old phone number and new phone number to update your information:</h4>
-                <form action='delivery.php' method='POST'>
-
-                    <div class='oldphone form-row align-items-center'>
-                      <div class='cakename col-auto'>
-
-                        <input type='number' name='oldphonenum' class=' form-control mb-2' id='inlineFormInput' placeholder='Old Phone Number'>
-                      </div>
-                      <div class='col-auto'>
-
-                      <input type='number' name='newphonenum' class=' form-control mb-2' id='inlineFormInput' placeholder='New Phone Number'>
-                      </div>
-
-                      <div class='updatephonesubmit col-auto'>
-                        <button type='submit' class=' btn btn-primary mb-2 bakerupdateorder'>Update Information</button>
-                      </div>
-                    </div>
-
-                  </form>";
-              }
-              // get all store address
-              else if ($transporterwork === "allstore") {
-                $sql = "SELECT address from Location";
-               $address = $conn->query($sql);
-               if ($address->num_rows > 0) {
-                 echo "<table style='text-align:center' class='storeaddress ordertable table table-striped'>
-                           <thead>
-                             <tr>
-                               <th scope='col'>Store Address</th>
-                             </tr>
-                           </thead>";
-
-                 while ($row = $address->fetch_assoc()) {
-                   echo   "<tbody>
-                               <tr>
-                                 <th scope='row'>".$row["address"]."</th>
-                               </tr>
-                             </tbody>";
-                 }
-                 echo "</table>";
-
-               } else {
-                 echo "<h4>Can not connect to the server.</h4>";
-               }
-              }
+               deliverywork($transporterwork, $conn);
             //   sql of update cakeorder status   ====================
                 @$confirmNumber = $_POST['confirmNum'];
-                if (isset($confirmNumber)) {
-                  $checkConfirNumsql = "SELECT * FROM CakeOrder Where confirmNum = '$confirmNumber' and status = 'Cake is ready.'";
-                  $findOrder = $conn->query($checkConfirNumsql);
-                  if ($findOrder->num_rows > 0) {
-                    $updateorderstatusql = "UPDATE CakeOrder SET status = 'finished' WHERE confirmNum = '$confirmNumber'";
-                    $conn->query($updateorderstatusql);
-                    echo "<h5>Update cake order status successfully.</h5>";
-                  } else {
-                    echo "<h5>Wrong confirm number, please try again. </h5>";
-                  }
-                }
+                updatecakestatus($confirmNumber, $conn);
 
           //     sql of update delivery phone number
                 @$oldphonenum = $_POST['oldphonenum'];
                 @$newphonenum = $_POST['newphonenum'];
-                if (isset($oldphonenum)) {
-                  $checkphonenumsql = "SELECT * FROM Delivery_Person WHERE phoneNum = '$oldphonenum'";
-                  $checkphonenum = $conn->query($checkphonenumsql);
-                  if ($checkphonenum->num_rows > 0) {
-                    if ($newphonenum === "" || strlen($newphonenum) !== 10  ) {
-                      echo "<h5>Please insert the correct new phone number.</h5>";
-                    } else {
-                      $updatesql = "UPDATE Delivery_Person SET phoneNum = '$newphonenum' WHERE phoneNum = '$oldphonenum'";
-                      $conn->query($updatesql);
-                      echo "<h5>Update information successfully.</h5>";
-                    }
-                  } else {
-                    echo "<h5>Wrong old phone number, please try again. </h5>";
-                  }
-                }
+                updatephone($oldphonenum,$newphonenum,$conn);
+
                CloseCon($conn);
                ?>
 

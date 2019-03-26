@@ -1,4 +1,5 @@
 
+<?php include 'functionphp/managerfunction.php'; ?>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -35,9 +36,9 @@
 
           <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
             <ul class="nav navbar-nav menu_nav justify-content-end">
-              <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
-              <li class="nav-item active"><a class="nav-link" href="menu.php">Our Menu</a>
-              <li class="nav-item"><a class="nav-link" href="orderstatus.php">Track Your Cake</a></li>
+              <!-- <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
+              <li class="nav-item active"><a class="nav-link" href="menu.php">Our Menu</a> -->
+              <li class="nav-item"><a class="nav-link" href="index.php">Log Out</a></li>
             </ul>
 
           </div>
@@ -68,6 +69,7 @@
                      <option value="check">CheckCompanyStatus</option>
                      <option value="hire">HireTransporter</option>
                      <option value="updatecake">UpdateCakeInfo</option>
+                     <option value="dataanalysis">DataAnalysis</option>
                      </select>
                      <input type="submit" class="button button-contactForm" >
                    </div>
@@ -80,280 +82,20 @@
          <!-- all menu from database -->
                <?php
             //   error_reporting(0);
+            include 'connect.php';
+            $conn = OpenCon();
+            @$managerwork = $_POST['managerwork'];
 
-               include 'connect.php';
-               $conn = OpenCon();
-
-
-               @$managerwork = $_POST['managerwork'];
-
-
-
-            // 1. check company status =====================
-               if ( $managerwork === 'check') {
-                 echo '<form class=" form-inline menu_filter" method="POST" action="manager.php">
-
-                     <div class="row">
-                         <div class="form-group input-flavour">
-                             <div class="constainerofcheckstatus col-12">
-                               <h5>Which status do you want to check: </h5>
-                               <select name="checkwork" >
-                               <option value="deliveryteam">DeliveryTeam</option>
-                               <option value="cakeorder">CakeOrder</option>
-                               <option value="customerinfo">CustomerInfo</option>
-                               <option value="cakereview">CakeReview</option>
-                               </select>
-                               <button type="submit" class="managercheckbutton button btn-success button-contactForm" >Check</button>
-                             </div>
-                     </div>
-                     </div>
-                 </form>';
-             //  2. update delivery team =================
-           } else if ($managerwork === "hire") {
-                echo "
-                <a name='hiredeliveryperson-section'></a>
-                   <div class='hirecontainer container'>
-                <h4>Please insert new delivery person's phone number and name :</h4>
-
-                <form action='manager.php' method='POST'>
-                    <div class='updateorder form-row align-items-center'>
-                      <div class='col-auto'>
-
-                        <input type='Number' name='phonenum' class='form-control mb-2' id='inlineFormInput' placeholder='Phone Number'>
-                      </div>
-                      <div class='col-auto'>
-
-                        <input type='text' name='deliveryname' class='form-control mb-2' id='inlineFormInput' placeholder='Name'>
-                      </div>
-
-                      <div class='col-auto'>
-                        <button type='submit'  class='btn btn-primary mb-2 bakerupdateorder'>AddOne</button>
-                      </div>
-                    </div>
-                  </form>
-                  </div>";
-             // 3. update caketype info====================
-              } else if ($managerwork === "updatecake") {
-                echo "
-                <div class='container updatecakecontainer'>
-                <h4>Please insert the cake name, topping, flavour and ingredients to add a new cake information:</h4>
-                <form action='manager.php' method='POST'>
-
-                    <div class='updatecake form-row align-items-center'>
-                      <div class='cakename col-auto'>
-
-                        <input type='text' name='cakename' class=' form-control mb-4' id='inlineFormInput' placeholder='New Cake Name'>
-                      </div>
-                      <div class='col-auto'>
-
-                      <input type='text' name='topping' class=' form-control mb-4' id='inlineFormInput' placeholder='New Topping'>
-                      </div>
-
-                     <div class='col-auto'>
-                      <input type='text' name='flavour' class=' form-control mb-4' id='inlineFormInput' placeholder='New Flavour'>
-                      </div>
-
-                      <input type='text' name='ingredients' class='ingredientstext form-control mb-3' id='inlineFormInput' placeholder='New Ingredients'>
-                      </div>
-
-                      <div class='updatecakesubmit col-auto'>
-                        <button type='submit' style='background:#52af52' class=' btn btn-primary mb-2 bakerupdateorder'>New Cake Information</button>
-                      </div>
-                    </div>
-
-                  </form>
-                  </div>";
-              }
+                 managerwork($managerwork);
             //  1. sql of check all status   ====================
                 @$checkwork = $_POST['checkwork'];
-                if (isset($checkwork)) {
-                  // keep the check option
-                  echo '<form class=" form-inline menu_filter" method="POST" action="manager.php">
-                      <div class="row">
-                          <div class="form-group input-flavour">
-                              <div class="constainerofcheckstatus col-12">
-                                <h5>Which status do you want to check: </h5>
-                                <select name="checkwork" >
-                                <option value="deliveryteam">DeliveryTeam</option>
-                                <option value="cakeorder">CakeOrder</option>
-                                <option value="customerinfo">CustomerInfo</option>
-                                <option value="cakereview">CakeReview</option>
-                                </select>
-                                <button type="submit" class="managercheckbutton button btn-success button-contactForm" >Check</button>
-                              </div>
-                      </div>
-                      </div>
-                  </form>';
-                  // check delivery team ======
-                  if ($checkwork === 'deliveryteam') {
-                    $sql = "SELECT phoneNum, dname from Delivery_Person order by dname";
-                    $deliveryteam = $conn->query($sql);
-                    if ($deliveryteam->num_rows > 0) {
-                      echo "<table style='text-align:center' class='ordertable table table-striped'>
-                                <thead>
-                                  <tr>
-                                    <th scope='col'>Name</th>
-                                    <th scope='col'>phoneNumber</th>
-                                  </tr>
-                                </thead>";
-
-                      while ($row = $deliveryteam->fetch_assoc()) {
-                        echo   "<tbody>
-                                    <tr>
-                                      <th scope='row'>".$row["dname"]."</th>
-                                      <td>".$row["phoneNum"]."</td>
-                                    </tr>
-                                  </tbody>";
-                      }
-                      echo "</table>";
-                    }
-                  } else if ($checkwork === 'cakeorder') {
-                      // check cake all order
-                      $sql = "SELECT o.confirmNum confirmNum, cc.CustID custID, o.orderDate orderDate, cc.CakeID cakeID, o.pquantity pquantity, o.totalPrice totalPrice, o.cancelDate cancelDate, o.status statu
-                              FROM CakeOrder o, Contains cc, Cake c
-                              WHERE o.confirmNum = cc.confirmNum and  cc.cakeID = c.cakeID
-                              order by orderDate
-                              ";
-                      $cakeorder = $conn->query($sql);
-                      if ($cakeorder->num_rows > 0) {
-                        echo "<table style='text-align:center' class='ordertable table table-striped'>
-                                  <thead>
-                                    <tr>
-                                      <th scope='col'>confirmNum</th>
-                                      <th scope='col'>customerID</th>
-                                      <th scope='col'>orderDate</th>
-                                      <th scope='col'>cakeID</th>
-                                      <th scope='col'>pquantity</th>
-                                      <th scope='col'>totalPrice</th>
-                                      <th scope='col'>status</th>
-                                      <th scope='col'>cancelDate</th>
-                                    </tr>
-                                  </thead>";
-
-                        while ($row = $cakeorder->fetch_assoc()) {
-                          echo   "<tbody>
-                                      <tr>
-                                        <th scope='row'>".$row["confirmNum"]."</th>
-                                        <td>".$row["custID"]."</td>
-                                          <td>".$row["orderDate"]."</td>
-                                            <td>".$row["cakeID"]."</td>
-                                              <td>".$row["pquantity"]."</td>
-                                                <td>".$row["totalPrice"]."</td>
-                                                  <td>".$row["statu"]."</td>
-                                                    <td>".$row["cancelDate"]."</td>
-                                      </tr>
-                                    </tbody>";
-                        }
-                        echo "</table>";
-                      }
-                  } else if ($checkwork === 'customerinfo') {
-                    // check all customers info
-                    $sql = "SELECT * from Customer2 order by custID";
-                    $customerinfo = $conn->query($sql);
-                    if ($customerinfo->num_rows > 0) {
-                      echo "<table style='text-align:center' class='ordertable table table-striped'>
-                                <thead>
-                                  <tr>
-                                    <th scope='col'>customerID</th>
-                                    <th scope='col'>phoneNumber</th>
-                                    <th scope='col'>name</th>
-                                    <th scope='col'>address</th>
-                                  </tr>
-                                </thead>";
-
-                      while ($row = $customerinfo->fetch_assoc()) {
-                        echo   "<tbody>
-                                    <tr>
-                                      <th scope='row'>".$row["custID"]."</th>
-                                      <td>".$row["phoneNum"]."</td>
-                                      <td>".$row["name"]."</td>
-                                      <td>".$row["address"]."</td>
-                                    </tr>
-                                  </tbody>";
-                      }
-                      echo "</table>";
-                    }
-                  } else if ($checkwork === 'cakereview') {
-                    // check all cake review
-                    $sql = "SELECT score, custID, cname, comment
-                            from Review_Write  order by cname";
-                    $review = $conn->query($sql);
-                    if ($review->num_rows > 0) {
-                      echo "<table style='text-align:center' class='ordertable table table-striped'>
-                                <thead>
-                                  <tr>
-                                    <th scope='col'>CakeName</th>
-
-                                    <th scope='col'>score</th>
-                                    <th scope='col'>comment</th>
-                                    <th scope='col'>customerID</th>
-                                  </tr>
-                                </thead>";
-
-                      while ($row = $review->fetch_assoc()) {
-                        echo   "<tbody>
-                                    <tr>
-                                      <th scope='row'>".$row["cname"]."</th>
-
-                                      <td>".$row["score"]."</td>
-                                      <td>".$row["comment"]."</td>
-                                      <td>".$row["custID"]."</td>
-                                    </tr>
-                                  </tbody>";
-                      }
-                      echo "</table>";
-                    }
-                  }
-
-
-                }
+                  checkworkoption($checkwork, $conn);
                 //  check company status end =====
 
                 // hire delivery person ===================
                 @$phonenum = $_POST['phonenum'];
                 @$deliveryname = $_POST['deliveryname'];
-                if (isset($phonenum) && isset($deliveryname) && strlen($phonenum) == 10) {
-                    //1001
-                    echo "
-                    <a name='hiredeliveryperson-section'></a>
-                       <div class='hirecontainer container'>
-                    <h4>Please insert new delivery person's phone number and name :</h4>
-
-                    <form action='manager.php' method='POST'>
-                        <div class='updateorder form-row align-items-center'>
-                          <div class='col-auto'>
-
-                            <input type='Number' name='phonenum' class='form-control mb-2' id='inlineFormInput' placeholder='Phone Number'>
-                          </div>
-                          <div class='col-auto'>
-
-                            <input type='text' name='deliveryname' class='form-control mb-2' id='inlineFormInput' placeholder='Name'>
-                          </div>
-
-                          <div class='col-auto'>
-                            <button type='submit'  class='btn btn-primary mb-2 bakerupdateorder'>AddOne</button>
-                          </div>
-                        </div>
-                      </form>
-                      </div>";
-                  // both phone num and deliveryname must be not Empty
-                  //1 check phone is not use
-                  $checkphonesql = "SELECT * FROM Delivery_Person
-                                    WHERE phoneNum = '$phonenum'";
-                  $checkphone = $conn->query($checkphonesql);
-                  if ($checkphone->num_rows > 0) {
-                    echo "<h5>The phone number has already have, please insert a correct phone number.</h5>";
-                  } else {
-                    // 1.1 phone is not use
-                    $newdeliverysql = "INSERT INTO Delivery_Person VALUES ('$phonenum', '$deliveryname')";
-                    $conn->query($newdeliverysql);
-
-                    echo "<h5>Welcome ".$deliveryname."!</h5>";
-
-                  }
-                } else if (isset($phonenum) && strlen($phonenum) !== 10) {
-                  echo "<h5>Please insert the right form of phone.</h5>";
-                }
+                hiredelivery($phonenum, $deliveryname, $conn);
                 // hire delivery person end
 
                 // add new cake type
@@ -361,27 +103,11 @@
                 @$topping = $_POST['topping'];
                 @$flavour = $_POST['flavour'];
                 @$ingredients = $_POST['ingredients'];
+                addnewcake($cakename, $ingredients, $flavour, $topping, $conn);
 
-                //3.1 check cake name
-                if (isset($cakename)) {
-                  $checkcakenamesql = "SELECT * FROM CakeType WHERE cname = '$cakename'";
-                  $checkcakename = $conn->query($checkcakenamesql);
-                  if ($checkcakename->num_rows > 0) {
-                    echo "<h5>The cake name has already have, please insert a correct cake name.</h5>";
-                  } else {
-                    $addnewcakesql = "INSERT INTO CakeType VALUES ('$cakename','$ingredients','$flavour','$topping')";
-                    $conn->query($addnewcakesql);
-                    echo "<h5>Add a new cake type successfully.</h5>";
-                  }
-                }
-
-
-
-
-
-
-
-
+                // data analysis
+                @$analysis = $_POST['analysis'];
+                dataanalysis($analysis, $conn);
 
 
                CloseCon($conn);

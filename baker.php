@@ -1,9 +1,10 @@
+<?php include 'functionphp/bakerfunction.php'; ?>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Milk & Sugar - Menu</title>
+  <title>Milk & Sugar</title>
 	<link rel="icon" href="img/Fevicon.png" type="image/png">
 
   <link rel="stylesheet" href="vendors/bootstrap/bootstrap.min.css">
@@ -34,9 +35,9 @@
 
           <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
             <ul class="nav navbar-nav menu_nav justify-content-end">
-              <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
-              <li class="nav-item active"><a class="nav-link" href="menu.php">Our Menu</a>
-              <li class="nav-item"><a class="nav-link" href="orderstatus.php">Track Your Cake</a></li>
+              <!-- <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
+              <li class="nav-item "><a class="nav-link" href="menu.php">Our Menu</a> -->
+              <li class="nav-item"><a class="nav-link" href="index.php">Log Out</a></li>
             </ul>
 
           </div>
@@ -80,130 +81,23 @@
 
                include 'connect.php';
                $conn = OpenCon();
-
-
                @$bakerwork = $_POST['bakerwork'];
+               // 1. first option: check cake order =====================
+                bakerwork($bakerwork, $conn);
+               // 1. first option: check cake order end =====================
 
-
-
-            // 1. check cake order =====================
-               if ( $bakerwork === 'check') {
-                 $sql = "SELECT o.confirmNum confirmNum, c.cakeID cakeID, o.pquantity pquantity, o.orderDate orderDate
-                         FROM CakeOrder o, Contains c
-                         WHERE o.confirmNum = c.confirmNum AND o.status is null";
-                $cakeorder = $conn->query($sql);
-                if ($cakeorder->num_rows > 0) {
-                  echo "<table class='ordertable table table-striped'>
-                            <thead>
-                              <tr>
-                                <th scope='col'>confrimNum</th>
-                                <th scope='col'>cakeID</th>
-                                <th scope='col'>quantity</th>
-                                <th scope='col'>orderDate</th>
-                              </tr>
-                            </thead>";
-
-                  while ($row = $cakeorder->fetch_assoc()) {
-                    echo   "<tbody>
-                                <tr>
-                                  <th scope='row'>".$row["confirmNum"]."</th>
-                                  <td>".$row["cakeID"]."</td>
-                                  <td>".$row["pquantity"]."</td>
-                                  <td>".$row["orderDate"]."</td>
-                                </tr>
-                              </tbody>";
-                  }
-                  echo "</table>";
-
-                } else {
-                  echo "<h4>Bad business today...</h4>";
-                }
-             //  2. update cake order status=================
-              } else if ($bakerwork === "updateorder") {
-                echo "<h4>Please insert the confirm number to update cake status:</h4>
-
-                <form action='baker.php' method='POST'>
-                    <div class='updateorder form-row align-items-center'>
-                      <div class='col-auto'>
-
-                        <input type='Number' name='confirmNum' class='form-control mb-2' id='inlineFormInput' placeholder='Confirm Number'>
-                      </div>
-
-                      <div class='col-auto'>
-                        <button type='submit' class='btn btn-primary mb-2 bakerupdateorder'>Update Cake Status</button>
-                      </div>
-                    </div>
-                  </form>";
-             // 3. update caketype info====================
-              } else if ($bakerwork === "updatecake") {
-                echo " <h4>Please insert the cake name, topping and ingredients to update cake information:</h4>
-                <form action='baker.php' method='POST'>
-
-                    <div class='updatecake form-row align-items-center'>
-                      <div class='cakename col-auto'>
-
-                        <input type='text' name='cakename' class=' form-control mb-2' id='inlineFormInput' placeholder='Cake Name'>
-                      </div>
-                      <div class='col-auto'>
-
-                      <input type='text' name='topping' class=' form-control mb-2' id='inlineFormInput' placeholder='New Topping'>
-                      </div>
-
-                      <input type='text' name='ingredients' class=' form-control mb-2' id='inlineFormInput' placeholder='New Ingredients'>
-                      </div>
-
-                      <div class='updatecakesubmit col-auto'>
-                        <button type='submit' class=' btn btn-primary mb-2 bakerupdateorder'>Update Cake Information</button>
-                      </div>
-                    </div>
-
-                  </form>";
-              }
             //   sql of update cakeorder status   ====================
                 @$confirmNumber = $_POST['confirmNum'];
-                if (isset($confirmNumber)) {
-                  $checkConfirNumsql = "SELECT * FROM CakeOrder Where confirmNum = '$confirmNumber' and status is NULL";
-                  $findOrder = $conn->query($checkConfirNumsql);
-                  if ($findOrder->num_rows > 0) {
-                    $updateorderstatusql = "UPDATE CakeOrder SET status = 'Cake is ready.' WHERE confirmNum = '$confirmNumber'";
-                    $conn->query($updateorderstatusql);
-                    echo "<h5>Update cake order status successfully.</h5>";
-                  } else {
-                    echo "<h5>Wrong confirm number, please try again. </h5>";
-                  }
-                }
+                updateorderstatus($confirmNumber, $conn);
+           //    sql of update cakeorder status end ===============
 
           //     sql of update caketype
                 @$cakename = $_POST['cakename'];
                 @$topping = $_POST['topping'];
                 @$ingredients = $_POST['ingredients'];
-                if (isset($cakename)) {
-                  $checkcaknamesql = "SELECT * FROM CakeType WHERE cname = '$cakename'";
-                  $checkcakename = $conn->query($checkcaknamesql);
-                  if ($checkcakename->num_rows > 0) {
-                    if ($topping === "" && $ingredients === "") {
-                      echo "<h5>Topping and Ingredients can not be empty.</h5>";
-                    } else if ($topping !== "" && $ingredients === "") {
-                      $toppingsql = "UPDATE CakeType SET topping = '$topping' WHERE cname = '$cakename'";
-                      $conn->query($toppingsql);
-                      echo "<h5>Update cake topping successfully.</h5>";
-                    } else if ($topping === "" && $ingredients !== "") {
-                      $ingredientsql = "UPDATE CakeType SET ingredients = '$ingredients' WHERE cname = '$cakename'";
-                      $conn->query($ingredientsql);
-                      echo "<h5>Update cake ingredients successfully.</h5>";
-                    } else {
-                      $bothsql = "UPDATE CakeType SET ingredients = '$ingredients' , topping = '$topping' WHERE cname = '$cakename'";
-                      $conn->query($bothsql);
-                      echo "<h5>Update cake topping and ingredients successfully.</h5>";
-                    }
-                  } else {
-                    echo "<h5>Wrong cake name, please try again. </h5>";
-                  }
-                }
-
-
-
-
+                // update cake info    ========
+                updatecakeinfo($cakename, $topping, $ingredients, $conn);
+                // update cake info end========
 
                CloseCon($conn);
                ?>
