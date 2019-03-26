@@ -92,7 +92,7 @@
                     <div class="row">
                         <div class="col-12">
                             <h4>Select Delivery Method: </h4>
-                            <select name="dmethod">
+                            <select name="dmethod" id="dmethod" onchange="ChangeSelect()">
                                 <option selected hidden value="none">Method</option>
                                 <option value="Home Delivery">Home Delivery</option>
                                 <option value="Pick Up Yourself">Pick Up Yourself</option>
@@ -122,37 +122,40 @@
 
 if (empty($method) or $method == "none") {
     echo "Choose your payment method!";
-}else if (empty($dmethod) or $dmethod == "none"){
-    echo "Choose your delivery method!";
 }
-else{
+//else if (empty($dmethod) or $dmethod == "none"){
+//    echo "Choose your delivery method!";
+//}
+else {
     $query1 = "SELECT confirmNum FROM CakeOrder where totalPrice = '$totalprice'";
     $confirmNum = $conn->query($query1);
-    $pid = rand(1,100);
+    $pid = rand(1, 100);
     static $temp;
-    if($dmethod == "Home Delivery"){
-        if (!empty($ddate)) {
-            $query4 = "UPDATE CakeOrder set totalPrice=totalPrice+5 where confirmNum = '$temp' ";
-            $query3 = "INSERT INTO Delivery_Fulfill VALUES('{$temp}','{$ddate}','{$useraddress}','{$userphone}')";
-            $conn->query($query4);
-            $conn->query($query3);
-            echo ''.$useraddress.'';
-        }
-        else echo "Enter your delivery date!";
-    }else  {
-       echo "Choose the location!";
-    }
 
-    if($confirmNum->num_rows > 0){
+    if ($confirmNum->num_rows > 0) {
         while ($row = $confirmNum->fetch_assoc()) {
             $query2 = "INSERT INTO Payment_Paid2 VALUES('{$row['confirmNum']}', '{$pid}' , '{$method}')";
             $conn->query($query2);
             $temp = $row['confirmNum'];
         }
-        if($conn->affected_rows == 1){
-            echo 'Success! Your confirmation number is: <strong>#'.$temp.'</strong>';
+
+        if ($conn->affected_rows == 1) {
+            echo 'Success! Your confirmation number is: <strong>#' . $temp . '</strong>';
         }
+
     }
+
+//    if ($dmethod == "Home Delivery") {
+//        if (!empty($ddate)) {
+//            $query4 = "UPDATE CakeOrder set totalPrice=totalPrice+5 where confirmNum = '$temp' ";
+//            $query3 = "INSERT INTO Delivery_Fulfill VALUES('{$temp}','{$ddate}','{$useraddress}','{$userphone}')";
+//            $conn->query($query4);
+//            $conn->query($query3);
+//            echo '' . $temp . ',' . $ddate . ',' . $useraddress . ',' . $userphone . '';
+//        }
+//        else echo "Enter your delivery date!";
+//    } else {
+//        echo "Choose the location!";}
 
 }
 CloseCon($conn);
@@ -161,11 +164,11 @@ CloseCon($conn);
     </div>
 </section>
 <!--======Payment Section End=======-->
-<!--<script>-->
-<!--    function ChangeSelect() {-->
-<!--        if (document.getElementById("dmethod") == "Home Delivery" ){-->
-<!--            $totalprice = $totalprice + 5;-->
-<!--            window.location.reload(true);-->
-<!--        }-->
-<!--    }-->
-<!--</script>-->
+<script>
+    function ChangeSelect() {
+        if (document.getElementById("dmethod").value == "Home Delivery" ){
+            $totalprice = $totalprice + 5;
+            window.location.reload(true);
+        }
+    }
+</script>
