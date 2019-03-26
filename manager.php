@@ -111,6 +111,7 @@
              //  2. update delivery team =================
            } else if ($managerwork === "hire") {
                 echo "
+                <a name='hiredeliveryperson-section'></a>
                    <div class='hirecontainer container'>
                 <h4>Please insert new delivery person's phone number and name :</h4>
 
@@ -126,7 +127,7 @@
                       </div>
 
                       <div class='col-auto'>
-                        <button type='submit' class='btn btn-primary mb-2 bakerupdateorder'>AddOne</button>
+                        <button type='submit'  class='btn btn-primary mb-2 bakerupdateorder'>AddOne</button>
                       </div>
                     </div>
                   </form>
@@ -312,6 +313,29 @@
                 @$phonenum = $_POST['phonenum'];
                 @$deliveryname = $_POST['deliveryname'];
                 if (isset($phonenum) && isset($deliveryname) && strlen($phonenum) == 10) {
+                    //1001
+                    echo "
+                    <a name='hiredeliveryperson-section'></a>
+                       <div class='hirecontainer container'>
+                    <h4>Please insert new delivery person's phone number and name :</h4>
+
+                    <form action='manager.php' method='POST'>
+                        <div class='updateorder form-row align-items-center'>
+                          <div class='col-auto'>
+
+                            <input type='Number' name='phonenum' class='form-control mb-2' id='inlineFormInput' placeholder='Phone Number'>
+                          </div>
+                          <div class='col-auto'>
+
+                            <input type='text' name='deliveryname' class='form-control mb-2' id='inlineFormInput' placeholder='Name'>
+                          </div>
+
+                          <div class='col-auto'>
+                            <button type='submit'  class='btn btn-primary mb-2 bakerupdateorder'>AddOne</button>
+                          </div>
+                        </div>
+                      </form>
+                      </div>";
                   // both phone num and deliveryname must be not Empty
                   //1 check phone is not use
                   $checkphonesql = "SELECT * FROM Delivery_Person
@@ -323,7 +347,9 @@
                     // 1.1 phone is not use
                     $newdeliverysql = "INSERT INTO Delivery_Person VALUES ('$phonenum', '$deliveryname')";
                     $conn->query($newdeliverysql);
+
                     echo "<h5>Welcome ".$deliveryname."!</h5>";
+
                   }
                 } else if (isset($phonenum) && strlen($phonenum) !== 10) {
                   echo "<h5>Please insert the right form of phone.</h5>";
