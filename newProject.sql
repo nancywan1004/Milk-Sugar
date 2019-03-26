@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 24, 2019 at 01:29 AM
+-- Generation Time: Mar 26, 2019 at 09:22 AM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 5.6.40
 
@@ -21,6 +21,34 @@ SET time_zone = "+00:00";
 --
 -- Database: `newProject`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `allUsers`
+--
+
+CREATE TABLE `allUsers` (
+  `username` varchar(50) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  `type` varchar(32) NOT NULL,
+  `custID` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `allUsers`
+--
+
+INSERT INTO `allUsers` (`username`, `password`, `type`, `custID`) VALUES
+('Amy', 'a106', 'c', 6),
+('Armstrong', 'a104', 'c', 4),
+('baker1', 'b101', 'b', NULL),
+('baker2', 'b102', 'b', NULL),
+('Jimmy', 'a101', 'c', 1),
+('Kim', 'a105', 'c', 5),
+('Lisa', 'a102', 'c', 2),
+('Tom', 'a107', 'c', 7),
+('Wolfman', 'a103', 'c', 3);
 
 -- --------------------------------------------------------
 
@@ -141,7 +169,6 @@ CREATE TABLE `Customer2` (
   `phoneNum` bigint(20) NOT NULL,
   `name` char(20) DEFAULT NULL,
   `address` char(30) DEFAULT NULL,
-  `username` char(30) DEFAULT NULL,
   `pass` varchar(30) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -149,14 +176,14 @@ CREATE TABLE `Customer2` (
 -- Dumping data for table `Customer2`
 --
 
-INSERT INTO `Customer2` (`custID`, `phoneNum`, `name`, `address`, `username`, `pass`) VALUES
-(1, 7780010001, 'Jimmy', '101 W 41st Ave Vancouver', 'a101', 'a101'),
-(2, 6040010002, 'Lisa', '2090 Main St Vancouver', 'a102', 'a102'),
-(3, 7780020002, 'Wolfman', '898 Dunbar St Vancouver', 'a103', 'a103'),
-(4, 6040020004, 'Armstrong', '4323 Sussex Ave Burnaby', 'a104', 'a104'),
-(5, 6040030005, 'Kim', '1001 Granville Ave Richmond', 'a105', 'a105'),
-(6, 7780000001, 'Amy', '3378 Wesbrook Mall, Vancouver', 'a106', 'a106'),
-(7, 7780000002, 'Tom', '5923 Berton Avenue\r\nVancouver', 'a107', 'a107');
+INSERT INTO `Customer2` (`custID`, `phoneNum`, `name`, `address`, `pass`) VALUES
+(1, 7780010001, 'Jimmy', '101 W 41st Ave Vancouver', 'a101'),
+(2, 6040010002, 'Lisa', '2090 Main St Vancouver', 'a102'),
+(3, 7780020002, 'Wolfman', '898 Dunbar St Vancouver', 'a103'),
+(4, 6040020004, 'Armstrong', '4323 Sussex Ave Burnaby', 'a104'),
+(5, 6040030005, 'Kim', '1001 Granville Ave Richmond', 'a105'),
+(6, 7780000001, 'Amy', '3378 Wesbrook Mall, Vancouver', 'a106'),
+(7, 7780000002, 'Tom', '5923 Berton Avenue\r\nVancouver', 'a107');
 
 -- --------------------------------------------------------
 
@@ -354,6 +381,13 @@ INSERT INTO `Suggest_Cake` (`fromcakeID`, `tocakeID`) VALUES
 --
 
 --
+-- Indexes for table `allUsers`
+--
+ALTER TABLE `allUsers`
+  ADD PRIMARY KEY (`username`),
+  ADD KEY `custID` (`custID`);
+
+--
 -- Indexes for table `Cake`
 --
 ALTER TABLE `Cake`
@@ -385,7 +419,7 @@ ALTER TABLE `Contains`
 --
 ALTER TABLE `Customer2`
   ADD PRIMARY KEY (`custID`) USING BTREE,
-  ADD UNIQUE KEY `username` (`username`);
+  ADD UNIQUE KEY `name` (`name`);
 
 --
 -- Indexes for table `Delivery_Fulfill`
@@ -443,6 +477,12 @@ ALTER TABLE `Suggest_Cake`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `allUsers`
+--
+ALTER TABLE `allUsers`
+  ADD CONSTRAINT `allusers_ibfk_1` FOREIGN KEY (`custID`) REFERENCES `Customer2` (`custID`);
 
 --
 -- Constraints for table `Cake`
