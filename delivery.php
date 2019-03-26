@@ -15,7 +15,7 @@
 
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/menu.css">
-  <link rel="stylesheet" href="css/baker.css">
+  <link rel="stylesheet" href="css/delivery.css">
 
 </head>
 <body>
@@ -47,25 +47,26 @@
   </header>
   <!--================Header Menu Area =================-->
 
-  <!--================Baker work section start =================-->
+  <!--================Delivery Person work section start =================-->
   <section class="section-margin">
     <div class="container">
       <div class="section-intro mb-75px">
-        <h4 class="intro-title">Welcome back, Baker!</h4>
+        <h4 class="intro-title">Welcome back, Transporter!</h4>
       </div>
 
-   <!--     baker   working area  -->
+   <!--     delivery person   working area  -->
 
-       <form class="form-inline menu_filter" method="POST" action="baker.php">
+       <form class="form-inline menu_filter" method="POST" action="delivery.php">
 
            <div class="row">
                <div class="form-group input-flavour">
                    <div class="col-12">
                      <h5>Time to work: </h5>
-                     <select name="bakerwork" >
-                     <option value="check">CheckOrder</option>
+                     <select name="transporterwork" >
+                     <option value="check">CheckDeliveryOrder</option>
                      <option value="updateorder">UpdateOrder</option>
-                     <option value="updatecake">UpdateCake</option>
+                     <option value="updatephonenum">ChangePhoneNum</option>
+                     <option value="allstore">AllStoreInfo</option>
                      </select>
                      <input type="submit" class="button button-contactForm" >
                    </div>
@@ -83,24 +84,25 @@
                $conn = OpenCon();
 
 
-               @$bakerwork = $_POST['bakerwork'];
+               @$transporterwork = $_POST['transporterwork'];
 
 
 
-            // 1. check cake order =====================
-               if ( $bakerwork === 'check') {
-                 $sql = "SELECT o.confirmNum confirmNum, c.cakeID cakeID, o.pquantity pquantity, o.orderDate orderDate
-                         FROM CakeOrder o, Contains c
-                         WHERE o.confirmNum = c.confirmNum AND o.status is null";
+            // 1. check cake delivery order =====================
+               if ( $transporterwork === 'check') {
+                 $sql = "SELECT o.confirmNum confirmNum, c.phoneNum customerPhoneNum, d.del_date deliveryDate, d.del_location deliveryLocation
+from CakeOrder o, Contains cc, Customer2 c, Delivery_Fulfill d
+where o.confirmNum = cc.confirmNum and o.confirmNum = d.confirmNum and o.status = 'Cake is ready.' and c.custID = cc.custID
+order by deliveryDate";
                 $cakeorder = $conn->query($sql);
                 if ($cakeorder->num_rows > 0) {
-                  echo "<table class='ordertable table table-striped'>
+                  echo "<table style='text-align:center' class='ordertable table table-striped'>
                             <thead>
                               <tr>
                                 <th scope='col'>confrimNum</th>
-                                <th scope='col'>cakeID</th>
-                                <th scope='col'>quantity</th>
-                                <th scope='col'>orderDate</th>
+                                <th scope='col'>customerPhoneNum</th>
+                                <th scope='col'>deliveryDate</th>
+                                <th scope='col'>deliveryLocation</th>
                               </tr>
                             </thead>";
 
@@ -108,9 +110,9 @@
                     echo   "<tbody>
                                 <tr>
                                   <th scope='row'>".$row["confirmNum"]."</th>
-                                  <td>".$row["cakeID"]."</td>
-                                  <td>".$row["pquantity"]."</td>
-                                  <td>".$row["orderDate"]."</td>
+                                  <td>".$row["customerPhoneNum"]."</td>
+                                  <td>".$row["deliveryDate"]."</td>
+                                  <td>".$row["deliveryLocation"]."</td>
                                 </tr>
                               </tbody>";
                   }
@@ -119,11 +121,11 @@
                 } else {
                   echo "<h4>Bad business today...</h4>";
                 }
-             //  2. update cake order status=================
-              } else if ($bakerwork === "updateorder") {
+             //  2. update cake delivery order status=================
+              } else if ($transporterwork === "updateorder") {
                 echo "<h4>Please insert the confirm number to update cake status:</h4>
 
-                <form action='baker.php' method='POST'>
+                <form action='delivery.php' method='POST'>
                     <div class='updateorder form-row align-items-center'>
                       <div class='col-auto'>
 
@@ -135,38 +137,60 @@
                       </div>
                     </div>
                   </form>";
-             // 3. update caketype info====================
-              } else if ($bakerwork === "updatecake") {
-                echo " <h4>Please insert the cake name, topping and ingredients to update cake information:</h4>
-                <form action='baker.php' method='POST'>
+             // 3. update delivery person info====================
+           } else if ($transporterwork === "updatephonenum") {
+                echo " <h4>Please insert your old phone number and new phone number to update your information:</h4>
+                <form action='delivery.php' method='POST'>
 
-                    <div class='updatecake form-row align-items-center'>
+                    <div class='oldphone form-row align-items-center'>
                       <div class='cakename col-auto'>
 
-                        <input type='text' name='cakename' class=' form-control mb-2' id='inlineFormInput' placeholder='Cake Name'>
+                        <input type='number' name='oldphonenum' class=' form-control mb-2' id='inlineFormInput' placeholder='Old Phone Number'>
                       </div>
                       <div class='col-auto'>
 
-                      <input type='text' name='topping' class=' form-control mb-2' id='inlineFormInput' placeholder='New Topping'>
+                      <input type='number' name='newphonenum' class=' form-control mb-2' id='inlineFormInput' placeholder='New Phone Number'>
                       </div>
 
-                      <input type='text' name='ingredients' class=' form-control mb-2' id='inlineFormInput' placeholder='New Ingredients'>
-                      </div>
-
-                      <div class='updatecakesubmit col-auto'>
-                        <button type='submit' class=' btn btn-primary mb-2 bakerupdateorder'>Update Cake Information</button>
+                      <div class='updatephonesubmit col-auto'>
+                        <button type='submit' class=' btn btn-primary mb-2 bakerupdateorder'>Update Information</button>
                       </div>
                     </div>
 
                   </form>";
               }
+              // get all store address
+              else if ($transporterwork === "allstore") {
+                $sql = "SELECT address from Location";
+               $address = $conn->query($sql);
+               if ($address->num_rows > 0) {
+                 echo "<table style='text-align:center' class='storeaddress ordertable table table-striped'>
+                           <thead>
+                             <tr>
+                               <th scope='col'>Store Address</th>
+                             </tr>
+                           </thead>";
+
+                 while ($row = $address->fetch_assoc()) {
+                   echo   "<tbody>
+                               <tr>
+                                 <th scope='row'>".$row["address"]."</th>
+                               </tr>
+                             </tbody>";
+                 }
+                 echo "</table>";
+
+               } else {
+                 echo "<h4>Can not connect to the server.</h4>";
+               }
+              }
             //   sql of update cakeorder status   ====================
                 @$confirmNumber = $_POST['confirmNum'];
                 if (isset($confirmNumber)) {
-                  $checkConfirNumsql = "SELECT * FROM CakeOrder Where confirmNum = '$confirmNumber' and status is NULL";
+                  $checkConfirNumsql = "SELECT * FROM CakeOrder Where confirmNum = '$confirmNumber' and status = 'Cake is ready.'";
                   $findOrder = $conn->query($checkConfirNumsql);
                   if ($findOrder->num_rows > 0) {
-                    $updateorderstatusql = "UPDATE CakeOrder SET status = 'Cake is ready.' WHERE confirmNum = '$confirmNumber'";
+                    $updateorderstatusql = "UPDATE CakeOrder SET status = 'finished' WHERE confirmNum = '$confirmNumber'";
                     $conn->query($updateorderstatusql);
                     echo "<h5>Update cake order status successfully.</h5>";
                   } else {
@@ -174,38 +198,24 @@
                   }
                 }
 
-          //     sql of update caketype
-                @$cakename = $_POST['cakename'];
-                @$topping = $_POST['topping'];
-                @$ingredients = $_POST['ingredients'];
-                if (isset($cakename)) {
-                  $checkcaknamesql = "SELECT * FROM CakeType WHERE cname = '$cakename'";
-                  $checkcakename = $conn->query($checkcaknamesql);
-                  if ($checkcakename->num_rows > 0) {
-                    if ($topping === "" && $ingredients === "") {
-                      echo "<h5>Topping and Ingredients can not be empty.</h5>";
-                    } else if ($topping !== "" && $ingredients === "") {
-                      $toppingsql = "UPDATE CakeType SET topping = '$topping' WHERE cname = '$cakename'";
-                      $conn->query($toppingsql);
-                      echo "<h5>Update cake topping successfully.</h5>";
-                    } else if ($topping === "" && $ingredients !== "") {
-                      $ingredientsql = "UPDATE CakeType SET ingredients = '$ingredients' WHERE cname = '$cakename'";
-                      $conn->query($ingredientsql);
-                      echo "<h5>Update cake ingredients successfully.</h5>";
+          //     sql of update delivery phone number
+                @$oldphonenum = $_POST['oldphonenum'];
+                @$newphonenum = $_POST['newphonenum'];
+                if (isset($oldphonenum)) {
+                  $checkphonenumsql = "SELECT * FROM Delivery_Person WHERE phoneNum = '$oldphonenum'";
+                  $checkphonenum = $conn->query($checkphonenumsql);
+                  if ($checkphonenum->num_rows > 0) {
+                    if ($newphonenum === "" || strlen($newphonenum) !== 10  ) {
+                      echo "<h5>Please insert the correct new phone number.</h5>";
                     } else {
-                      $bothsql = "UPDATE CakeType SET ingredients = '$ingredients' , topping = '$topping' WHERE cname = '$cakename'";
-                      $conn->query($bothsql);
-                      echo "<h5>Update cake topping and ingredients successfully.</h5>";
+                      $updatesql = "UPDATE Delivery_Person SET phoneNum = '$newphonenum' WHERE phoneNum = '$oldphonenum'";
+                      $conn->query($updatesql);
+                      echo "<h5>Update information successfully.</h5>";
                     }
                   } else {
-                    echo "<h5>Wrong cake name, please try again. </h5>";
+                    echo "<h5>Wrong old phone number, please try again. </h5>";
                   }
                 }
-
-
-
-
-
                CloseCon($conn);
                ?>
 
