@@ -9,7 +9,7 @@ $result = $mysqli->query("SELECT * FROM allUsers WHERE username='$logName'");
 // Check if username exists in database
 if ($result->num_rows == 0 ) {
   $_SESSION['message'] = "An account with this username does not exist.";
-  header("location:orderstatus.php");
+  header("location:errorLogin.php");
 }
 else {
   // Proceed to validate login credentials
@@ -42,7 +42,7 @@ else {
   else {
     // print_r('Password bad');die;
     $_SESSION['message'] = "Password is incorrect.";
-    header("location:orderstatus.php");
+    header("location:errorLogin.php");
   }
 }
 

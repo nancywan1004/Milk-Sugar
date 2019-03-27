@@ -76,87 +76,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 <section class="hero-banner hero-banner-sm">
   <div class="hero-wrapper">
     <div class="hero-left">
-      <h1 class="hero-title">Track Your Order</h1>
+      <h1 class="hero-title">Employee Login</h1>
       <ul class="hero-info d-none d-md-block">
-        <li>
-          <img src="img/banner/fas-service-icon.png" alt="">
-          <h4>Fast Service</h4>
-        </li>
-        <li>
-          <img src="img/banner/fresh-cake-icon.png" alt="">
-          <h4>Fresh Cake</h4>
-        </li>
       </ul>
     </div>
     <div class="hero-right">
+
+      <div class="jslogin">
+        <h3>Login</h3>
+        <form action="emLogin.php" id="form_id" method="post" name="myform">
+          <label>User Name :</label>
+          <input type="text" name="username" id="username"/>
+          <label>Password :</label>
+          <input type="password" name="password" id="password"/>
+          <button class="button button-block" name="login" />Log In</button>
+          <!--<input type="button" name="login" value="Login" id="submit"/>-->
+        </form>
+      </div>
     </div>
   </div>
 </section>
 <!--================Hero Banner Section end =================-->
-
-<!-- ================ contact section start ================= -->
-  <section class="section-margin">
-    <div class="container">
-      <div class="row">
-        <div class="col-12">
-          <h2 class="contact-title">Your Order Information</h2>
-        </div>
-        <div class="col-lg-8">
-          <form class="form-contact contact_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
-            <div class="row">
-              <div class="col-12">
-                <div class="form-group">
-                    <input class="form-control" name="confirm#" id="confirm#" type="text" placeholder="Enter Confirmation #">
-                </div>
-              </div>
-              <div class="col-sm-6">
-                <div class="form-group">
-                  <input class="form-control" name="name" id="name" type="text" placeholder="Enter your name">
-                </div>
-              </div>
-              <div class="col-sm-6">
-                <div class="form-group">
-                  <input class="form-control" name="phone#" id="phone#" type="number" placeholder="Enter phone#">
-                </div>
-              </div>
-            </div>
-            <div class="form-group mt-3">
-              <button type="submit" class="button button-contactForm">Submit</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- ================ contact section end ================= -->
-
-  <!-- ================ contact section start ================= -->
-  <section class="section-margin">
-    <div class="container">
-      <div class="row">
-        <div class="col-12">
-          <h2 class="contact-title">Need to cancel your order?</h2>
-        </div>
-        <div class="col-lg-8">
-          <form action="orderstatus.php" id="form_id" method="post" name="myform">
-            <div class="row">
-              <div class="col-12">
-                <div class="form-group">
-                    <input class="form-control" name="confirm#" id="confirm#" type="text" placeholder="Enter Confirmation #">
-                </div>
-              </div>
-            <div class="form-group mt-3">
-              <button class="button button-block" name='cancel' />Cancel</button>
-            </div>
-          </form>
-
-
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- ================ contact section end ================= -->
-
 
 </body>
 

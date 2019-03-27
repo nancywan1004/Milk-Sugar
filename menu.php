@@ -35,7 +35,8 @@
             <ul class="nav navbar-nav menu_nav justify-content-end">
               <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
               <li class="nav-item active"><a class="nav-link" href="menu.php">Menu</a>
-              <li class="nav-item"><a class="nav-link" href="orderstatus.html">Order</a></li>
+              <li class="nav-item"><a class="nav-link" href="orderstatus.php">Order</a></li>
+              <li class="nav-item active"><a class="nav-link" href="emLogin.php">Employee Login</a></li>
             </ul>
 
           </div>

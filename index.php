@@ -34,6 +34,7 @@
               <li class="nav-item active"><a class="nav-link" href="index.php">Home</a></li>
               <li class="nav-item"><a class="nav-link" href="menu.php">Menu</a>
               <li class="nav-item"><a class="nav-link" href="orderstatus.html">Order</a></li>
+              <li class="nav-item active"><a class="nav-link" href="emLogin.php">Employee Login</a></li>
             </ul>
 
           </div>
@@ -207,5 +208,3 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
   <script src="js/main.js"></script>
 </body>
 </html>
-
-
