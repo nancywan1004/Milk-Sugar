@@ -139,25 +139,38 @@ session_start();
                 }
 
                 ?>
-                 <form class="form-group" method="POST" action="orderstatus.php" id="form2">
-                    <button type="submit" name="cancel" value="cancel" class="button button-contactForm" form="form2">Cancel</button>
-            </form>
+            <section class="section-margin">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <h2 class="contact-title">Need to cancel your order?</h2>
+                        </div>
+                        <div class="col-lg-8">
+                            <form action="orderstatus.php" id="form_id" method="post" name="myform">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <input class="form-control" name="confirm#" id="confirm#" type="text" placeholder="Enter Confirmation #">
+                                        </div>
+                                    </div>
+                                    <div class="form-group mt-3">
+                                        <button class="button button-block" name='cancel' />Cancel</button>
+                                    </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
             <?php
 //            @$cancel = $_POST['cancel'];
 //            echo $conn->affected_rows;
             $user_confirm = $_SESSION['confirmNum'];
          //   echo !empty($_POST['cancel']);
-            echo $user_confirm;
-                 if (!isset($_POST['cancel'])) {echo "Cancellation Failed";}
-                 else{
-                    $query2 = "UPDATE CakeOrder set status = 'cancelled', cancelDate = CURRENT_DATE where confirmNum = '{$user_confirm}' ";
-                    $conn->query($query2);
-                    date_default_timezone_set('America/Los_Angeles');
-                    $date = date("Y-m-d H:i:s");
-                    echo $user_confirm;
-                    if ($conn->affected_rows == 1) {
-                        echo "Cancelled successfully on $date.";
-                    }
+         //   echo $user_confirm;
+                 if (isset($_POST['cancel']))
+                 {
+                     require 'custcancelorder.php';
+
                 }
 
 
