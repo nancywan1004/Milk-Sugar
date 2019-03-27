@@ -1,3 +1,15 @@
+<?php
+require 'db.php';
+$success = session_start();
+
+if($success){
+  echo "works";
+} else {
+  echo "not working";
+}
+
+
+?>
 
 <html lang="en">
 <head>
@@ -20,6 +32,24 @@
 </head>
 <body>
 
+  <?php
+  // this php code is executed when request method is post
+  if ($_SERVER['REQUEST_METHOD'] == 'POST')
+  {
+    // 'login' will refer to button name 'login'
+    if (isset($_POST['logout'])) {
+      // if user clicks login, import login.php
+      require 'logout.php';
+
+    }
+
+  }
+  ?>
+
+
+  <?php
+    print_r($_SESSION);
+  ?>
   <!--================ Header Menu Area start =================-->
 
   <header class="header_area">
@@ -38,6 +68,8 @@
               <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
               <li class="nav-item active"><a class="nav-link" href="menu.php">Our Menu</a>
               <li class="nav-item"><a class="nav-link" href="orderstatus.php">Track Your Cake</a></li>
+              <!--<li class="nav-item"><a class="nav-link" href="orderstatus.php">Logout</a></li>-->
+              <!--<button class="button" name="logout" />Log Out</button>-->
             </ul>
 
           </div>
@@ -69,9 +101,16 @@
                      </select>
                      <input type="submit" class="button button-contactForm" >
                    </div>
+
            </div>
            </div>
        </form>
+       <!-------------================Logout form================----------------->
+       <form action="baker.php" method="POST" id="nameform">
+         <h5>Finished? Logout here. </h5>
+       </form>
+
+      <button type="submit" form="nameform" name="logout">Logout</button>
 
 
 

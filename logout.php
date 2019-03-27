@@ -5,9 +5,9 @@ session_start();
 session_unset();
 
 // destroy session
-session_destroy()
+session_destroy();
 
 // redirect to new page
-header("Location: orderstatus.php")
+header("location: orderstatus.php");
 
 ?>
