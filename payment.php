@@ -99,7 +99,7 @@ session_start();
                                 <option value="Pick Up Yourself">Pick Up Yourself</option>
                             </select>
                         </div>
-                        <input class="form-control" type="text" id="deldate" name="deldate" placeholder="Deliverydate..">
+                        <input class="form-control" type="text" id="deldate" name="deldate" placeholder="Delivery Date..">
                         <div class="col-12">
                             <h4>Select Payment Method: </h4>
                             <select name="method" >
@@ -120,6 +120,8 @@ session_start();
 @$method = $_POST['method'];
 @$dmethod = $_POST['dmethod'];
 @$ddate = $_POST['deldate'];
+@$pdate = $_POST['pdate'];
+@$plocation = $_POST['plocation'];
 $temp_price = $_SESSION["price"];
 $useraddress = (isset($_COOKIE['mycookie2']) ? $_COOKIE['mycookie2']: null);
 $userphone = (isset($_COOKIE['mycookie3']) ? $_COOKIE['mycookie3']: null);
@@ -136,6 +138,7 @@ else {
     $confirmNum = $conn->query($query1);
     $pid = rand(1, 100);
     static $temp;
+    static $temp2;
     if ($confirmNum->num_rows > 0) {
         while ($row = $confirmNum->fetch_assoc()) {
             $query2 = "INSERT INTO Payment_Paid2 VALUES('{$row['confirmNum']}', '{$pid}' , '{$method}')";
@@ -164,10 +167,20 @@ else {
         }
         else echo "Enter your delivery date!";
     } else {
-//        $query5 = "INSERT INTO Pick_";
-//        $query6 = "SELECT * FROM Location";
-//        $location = $conn->query($query6);
-//        echo "Choose the location: '.$location.' ";
+        echo $plocation;
+        $query6 = "SELECT lid FROM Location where address = '{$plocation}'";
+        $lid = $conn->query($query6);
+        if ($lid->num_rows > 0){
+            while($row2 = $lid->fetch_assoc()) {
+                $query5 = "INSERT INTO Pickup_PickedAt VALUES('{$confirmNum}','{$row2['lid']}','{$pdate}')";
+                $conn->query($query5);
+                $temp2 = $row2['lid'];
+            }
+            if ($conn->affected_rows == 1) {
+                echo 'Pick your cake on'.$pdate.' at '.$temp2.'!';
+            }
+        }
+
     }
 }
 CloseCon($conn);
@@ -185,8 +198,19 @@ session_destroy();
 <!-- ================ start footer Area ================= -->
 <a name="footer-section"></a>
 <footer class="footer-area section-gap">
+
     <div class="container">
         <h3> Find us at ... </h3>
+        <div class="col-12">
+        <select name="plocation" id="plocation">
+            <option selected hidden value="none">Location</option>
+            <option value="310 Cambie St Richmond">310 Cambie St, Richmond, British Columbia</option>
+            <option value="100 Denman St Vancouver">100 Denman St, Vancouver, British Columbia</option>
+            <option value="415 Kingsway St Burnaby">415 Kingsway St, Burnaby, British Columbia</option>
+            <option value="205 Fraser St Vancouver">205 Fraser St, Vancouver, British Columbia</option>
+        </select>
+        </div>
+        <input class="form-control" type="text" id="pdate" name="pdate" placeholder="Pickup date..">
         <div class="row">
             <div class="media contact-info">
                 <span class="contact-info__icon"><i class="ti-home"></i></span>
@@ -212,7 +236,7 @@ session_destroy();
             <div class="media contact-info">
                 <span class="contact-info__icon"><i class="ti-home"></i></span>
                 <div class="media-body">
-                    <h3>520 Fraser St</h3>
+                    <h3>205 Fraser St</h3>
                     <p>Vancouver, British Columbia</p>
                 </div>
             </div>
