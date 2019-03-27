@@ -36,9 +36,9 @@
           <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
             <ul class="nav navbar-nav menu_nav justify-content-end">
               <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
-              <li class="nav-item"><a class="nav-link" href="menu.html">Menu</a>
-							</li>
-              <li class="nav-item active"><a class="nav-link" href="orderstatus.html">Order</a></li>
+              <li class="nav-item"><a class="nav-link" href="menu.php">Menu</a></li>
+              <li class="nav-item active"><a class="nav-link" href="orderstatus.php">Order</a></li>
+              <li class="nav-item active"><a class="nav-link" href="emLogin.php">Employee Login</a></li>
             </ul>
           </div>
         </div>
@@ -46,7 +46,13 @@
     </div>
   </header>
   <!--================Header Menu Area =================-->
-  <h5>Order cannot be cancelled! </h5>
+  <section class="section-margin">
+    <div class="container">
+      <div class="section-intro mb-75px">
+        <h4 class="intro-title">Error. Order cannot be cancelled. Please call for further assistance.</h4>
+      </div>
+    </div>
+  </section>
 
 
 

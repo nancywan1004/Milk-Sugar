@@ -61,9 +61,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
           <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
             <ul class="nav navbar-nav menu_nav justify-content-end">
               <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
-              <li class="nav-item"><a class="nav-link" href="menu.html">Menu</a></li>
-              <li class="nav-item active"><a class="nav-link" href="orderstatus.html">Order</a></li>
-              <li class="nav-item active"><a class="nav-link" href="emLogin.php">Employee Login</a></li>
+              <li class="nav-item"><a class="nav-link" href="menu.php">Menu</a></li>
+              <li class="nav-item"><a class="nav-link" href="orderstatus.php">Order</a></li>
+              <li class="nav-item"><a class="nav-link" href="emLogin.php">Employee Login</a></li>
             </ul>
           </div>
         </div>
@@ -93,6 +93,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   </div>
 </section>
 <!--================Hero Banner Section end =================-->
+
+
 
 <!-- ================ contact section start ================= -->
   <section class="section-margin">
@@ -149,8 +151,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
               <button class="button button-block" name='cancel' />Cancel</button>
             </div>
           </form>
-
-
         </div>
       </div>
     </div>
