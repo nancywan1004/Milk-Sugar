@@ -206,22 +206,6 @@ ob_start(); // Initiate the output buffer
                   </div>
                 </div>
               </div>
-              <div class="form-group">
-                <div class="input-group">
-                  <input type="text" class="form-control" placeholder="Today's Date (yyyy-mm-dd)" name="order_date">
-                  <div class="input-group-append">
-                    <span class="input-group-text"><i class="ti-email"></i></span>
-                  </div>
-                </div>
-              </div>
-                <div class="form-group">
-                    <div class="input-group">
-                        <input type="text" name="password" class="form-control" placeholder="Password">
-                        <div class="input-group-append">
-                            <span class="input-group-text"><i class="fas fa-key"></i></span>
-                        </div>
-                    </div>
-                </div>
 			  
               <div class="form-group form-group-position">
                 <button class="button border-0" type="submit">Submit</button>
@@ -236,10 +220,8 @@ ob_start(); // Initiate the output buffer
 			$cake_name = (isset($_GET['cake_name']) ? $_GET['cake_name'] : null);
 			$cake_size = (isset($_GET['cake_size']) ? $_GET['cake_size'] : null);
 			$quantity = (isset($_GET['quantity']) ? $_GET['quantity'] : null);
-			$order_date = (isset($_GET['order_date']) ? $_GET['order_date'] : null);
-            $password = (isset($_GET['password']) ? $_GET['password'] : null);
 
-			$query1 = "INSERT INTO customer1 VALUES ('{$user_name}', '{$user_address}', '{$user_phone}', '{$password}');";
+			$query1 = "INSERT INTO customer1 VALUES ('{$user_name}', '{$user_address}', '{$user_phone}');";
 			$query2 = "SELECT cakeID FROM cake WHERE cname = '{$cake_name}' and size = '{$cake_size}'"; 
 			$query3 = "SELECT price FROM CakePrice WHERE cname = '{$cake_name}' and size = '{$cake_size}'";
 			
@@ -255,19 +237,19 @@ ob_start(); // Initiate the output buffer
 					$row2 = $result3->fetch_assoc();
 				// output data of each row
 					
-					$_SESSION["counter"] = $row2['price'] + 1;
+					$_SESSION["counter"] = rand(150, 250);
 					
 					$temp = $quantity * $row2['price'];
 										
 					$nothing = 'NULL';
 					
-					$query4 = "INSERT INTO CakeOrder VALUES ('{$_SESSION["counter"]}', '{$quantity}', '{$order_date}', '{$temp}', NULL, 'pending', '{$row1['cakeID']}')";
+					$query4 = "INSERT INTO CakeOrder VALUES ('{$_SESSION["counter"]}', '{$quantity}', CURRENT_DATE, '{$temp}', NULL, 'pending', '{$row1['cakeID']}')";
 					
 					$result4 = $conn->query($query4);
 
 
 					if ($conn->affected_rows == 1) {
-					    echo 'Click Pay';
+					    echo 'Click Pay.';
                         setcookie('mycookie',$temp);
                         setcookie('mycookie2',$user_address);
                         setcookie('mycookie3',$user_phone);

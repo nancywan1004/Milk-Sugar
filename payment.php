@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -74,16 +78,12 @@
                     <?php
                     include 'connect.php';
                     $conn = OpenCon();
+					
                     $totalprice = (isset($_COOKIE['mycookie']) ? $_COOKIE['mycookie']: null);
-                    $useraddress = (isset($_COOKIE['mycookie2']) ? $_COOKIE['mycookie2']: null);
-                    $userphone = (isset($_COOKIE['mycookie3']) ? $_COOKIE['mycookie3']: null);
-                    @$dmethod = $_POST['dmethod'];
-                    if ($dmethod == "Home Delivery") {
-                        $totalprice = $totalprice + 5;
-                    }
-
-                    echo $totalprice;
-//
+					
+					echo ''.$totalprice.'';
+					
+					$_SESSION["price"] = $totalprice;
                     ?>
                 </h4>
             </div>
@@ -98,7 +98,7 @@
                                 <option value="Pick Up Yourself">Pick Up Yourself</option>
                             </select>
                         </div>
-                        <input class="form-control" type="text" id="deldate" name="deldate" placeholder="Deliverydate..">
+                        <input class="form-control" type="text" id="deldate" name="deldate" placeholder="Date to Deliver (yyyy-mm-dd)">
                         <div class="col-12">
                             <h4>Select Payment Method: </h4>
                             <select name="method" >
@@ -117,17 +117,27 @@
         <div class="row">
 <?php
 @$method = $_POST['method'];
-
+@$dmethod = $_POST['dmethod'];
 @$ddate = $_POST['deldate'];
+
+$temp_price = $_SESSION["price"];
+
+$useraddress = (isset($_COOKIE['mycookie2']) ? $_COOKIE['mycookie2']: null);
+$userphone = (isset($_COOKIE['mycookie3']) ? $_COOKIE['mycookie3']: null);
+@$dmethod = $_POST['dmethod'];
+if ($dmethod == "Home Delivery") {
+}
+
+// echo ''.$temp_price.'';
 
 if (empty($method) or $method == "none") {
     echo "Choose your payment method!";
 }
-//else if (empty($dmethod) or $dmethod == "none"){
-//    echo "Choose your delivery method!";
-//}
+else if (empty($dmethod) or $dmethod == "none"){
+    echo "Choose your delivery method!";
+}
 else {
-    $query1 = "SELECT confirmNum FROM CakeOrder where totalPrice = '$totalprice'";
+    $query1 = "SELECT confirmNum FROM CakeOrder where totalPrice = '{$temp_price}'";
     $confirmNum = $conn->query($query1);
     $pid = rand(1, 100);
     static $temp;
@@ -145,17 +155,25 @@ else {
 
     }
 
-//    if ($dmethod == "Home Delivery") {
-//        if (!empty($ddate)) {
-//            $query4 = "UPDATE CakeOrder set totalPrice=totalPrice+5 where confirmNum = '$temp' ";
-//            $query3 = "INSERT INTO Delivery_Fulfill VALUES('{$temp}','{$ddate}','{$useraddress}','{$userphone}')";
-//            $conn->query($query4);
-//            $conn->query($query3);
-//            echo '' . $temp . ',' . $ddate . ',' . $useraddress . ',' . $userphone . '';
-//        }
-//        else echo "Enter your delivery date!";
-//    } else {
-//        echo "Choose the location!";}
+if ($dmethod == "Home Delivery") {
+	// echo 'home delivery';
+        if (!empty($ddate)) {
+			// echo 'got it, '.$temp.'';
+            $query4 = "UPDATE CakeOrder set totalPrice = '{$temp_price}' + 5 where confirmNum = '{$temp}' ";
+			
+            $query3 = "INSERT INTO Delivery_Fulfill VALUES ('{$temp}', '{$ddate}', '{$useraddress}')";
+            $conn->query($query4);
+			
+			// echo ''.$conn->affected_rows.'';
+            
+			$conn->query($query3);
+			// echo ''.$conn->affected_rows.'';
+            // echo '' . $temp . ',' . $ddate . ',' . $useraddress . ',' . $userphone . '';
+        }
+        else echo "Enter your delivery date!";
+    } else {
+        echo "Choose the location!";
+	}
 
 }
 CloseCon($conn);
@@ -172,3 +190,13 @@ CloseCon($conn);
         }
     }
 </script>
+
+<?php
+	// remove all session variables
+	session_unset();
+
+	// destroy the session
+	session_destroy();
+?>
+</body>
+</html>
