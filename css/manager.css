@@ -1,0 +1,45 @@
+.bakerupdateorder {
+  margin-left: 40px;
+  margin-top: 10px;
+}
+
+.updatecakesubmit {
+  margin-left: -40px;
+}
+
+.ordertable {
+  margin-top: 40px;
+}
+
+/* .updateorder {
+  margin-top: 30px;
+} */
+
+.updatecake {
+  margin-top: 15px;
+}
+
+.updatecakecontainer {
+  margin-top: 65px;
+}
+
+.managercheckbutton {
+  background: #52af52;
+  margin-left: 10px;
+}
+
+.constainerofcheckstatus {
+  margin-top: 60px;
+}
+
+.footer-area {
+  margin-top: 120px;
+}
+
+.hirecontainer {
+  margin-top: 70px;
+}
+
+.ingredientstext {
+  width: 70%;
+}

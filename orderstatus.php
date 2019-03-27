@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,6 +38,7 @@
               <li class="nav-item"><a class="nav-link" href="menu.php">Our Menu</a>
 							</li>
               <li class="nav-item active"><a class="nav-link" href="orderstatus.php">Track Your Cake</a></li>
+			  <li class="nav-item"><a class="nav-link" href="emLogin.php">Employee Login</a></li>
             </ul>
           </div> 
         </div>
@@ -60,18 +64,6 @@
         </ul>
       </div>
       <div class="hero-right">
-
-        <div class="jslogin">
-          <form id="form_id" method="post" name="myform">
-			<h3>Log In</h3>
-            <label>User Name :</label>
-            <input type="text" name="username" id="username"/>
-            <label>Password :</label>
-            <input type="password" name="password" id="password"/>
-            <h3><input type="button" value="Login" id="submit" onclick="validate()" class="button"/></h3>
-          </form>
-        </div>
-      </div>
     </div>
   </section>
   <!--================Hero Banner Section end =================-->
@@ -85,7 +77,7 @@
           <h2 class="contact-title">Your Order Information</h2>
         </div>
         <div class="col-lg-8">
-          <form class="form-contact contact_form">
+          <form class="form-contact contact_form" method="POST" action="orderstatus.php" id="form1">
             <div class="row">
               <div class="col-12">
                 <div class="form-group">
@@ -94,54 +86,91 @@
               </div>
             </div>
             <div class="form-group mt-3">
-              <button type="submit" class="button button-contactForm">Submit</button>
+                <button type="submit"  name="track" value="track" class="button button-contactForm" form="form1">Submit</button>
             </div>
           </form>
+
 		  
 			<?php
 			include 'connect.php';
 			$conn = OpenCon();
-
-			$user_confirm = (isset($_GET['confirm#']) ? $_GET['confirm#'] : null);
-
-			$query = "SELECT confirmNum, orderDate, status FROM cakeorder WHERE confirmNum = '{$user_confirm}'";
-
-			$result = $conn->query($query);
-			if ($result->num_rows > 0) {
-
-				// output data of each row
-				while($row = $result->fetch_assoc()) {
-					echo '<div class="col-lg-6">
+        //    echo isset($_POST['track']);
+			$user_confirm = (isset($_POST['confirm#']) ? $_POST['confirm#'] : null);
+            $_SESSION['confirmNum'] = $user_confirm;
+           // echo $user_confirm;
+            if (isset($_POST['track'])) {
+//                echo 'success';
+                $query = "SELECT confirmNum, orderDate, status FROM cakeorder WHERE confirmNum = '{$user_confirm}'";
+                $result = $conn->query($query);
+                if ($result->num_rows > 0) {
+                    // output data of each row
+                    while ($row = $result->fetch_assoc()) {
+                        echo '<div class="col-lg-6">
 						  <div class="media align-items-center food-card">
 							<div class="media-body">
 							  <div class="d-flex justify-content-between food-card-title">
-								<h4>Confirmation #: '.$row["confirmNum"].'</h4>
+								<h4>Confirmation #: ' . $row["confirmNum"] . '</h4>
 							  </div>
-							  <h3 class="price-tag">Order Date: '.$row['orderDate'].'</h3>
+							  <h3 class="price-tag">Order Date: ' . $row['orderDate'] . '</h3>
 							  <form>
-								<p>STATUS: '.$row['status'].'</p>
+								<p>STATUS: ' . $row['status'] . '</p>
 							  </form>
 							</div>
 						  </div>
 						</div>';
-				}
-				echo "</table>";
-			}
-			else {
-				echo "0 results";
-			}
-			CloseCon($conn);
+                    }
+                    echo "</table>";
+                } else {
+                    echo "0 results";
+                }
+                }
+                ?>
+            <section class="section-margin">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <h2 class="contact-title">Need to cancel your order?</h2>
+                        </div>
+                        <div class="col-lg-8">
+                            <form action="orderstatus.php" id="form_id" method="post" name="myform">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <input class="form-control" name="confirm#" id="confirm#" type="text" placeholder="Enter Confirmation #">
+                                        </div>
+                                    </div>
+                                    <div class="form-group mt-3">
+                                        <button class="button button-block" name='cancel' />Cancel</button>
+                                    </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <?php
+//            @$cancel = $_POST['cancel'];
+//            echo $conn->affected_rows;
+            $user_confirm = $_SESSION['confirmNum'];
+         //   echo !empty($_POST['cancel']);
+         //   echo $user_confirm;
+                 if (isset($_POST['cancel']))
+                 {
+                     require 'custcancelorder.php';
+                }
+                CloseCon($conn);
 			?>
 
         </div>
+
       </div>
     </div>
   </section>
 	<!-- ================ contact section end ================= -->
 
+
   
   <!-- ================ start footer Area ================= -->
-  <footer class="footer-area section-gap">
+<footer class="footer-area section-gap">
 		<div class="container">
 			<h3> Find us at ... </h3>
 			<div class="row">
@@ -221,3 +250,9 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
   <script src="js/main.js"></script>
 </body>
 </html>
+<?php
+// remove all session variables
+session_unset();
+// destroy the session
+session_destroy();
+?>

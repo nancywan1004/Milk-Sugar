@@ -150,7 +150,7 @@ else {
         }
 
         if ($conn->affected_rows == 1) {
-            echo 'Success! Your confirmation number is: <strong>#' . $temp . '</strong>';
+            echo 'Success! Your confirmation number is: <strong>#' . $temp . '. </strong>';
         }
 
     }
@@ -169,6 +169,8 @@ if ($dmethod == "Home Delivery") {
 			$conn->query($query3);
 			// echo ''.$conn->affected_rows.'';
             // echo '' . $temp . ',' . $ddate . ',' . $useraddress . ',' . $userphone . '';
+			$temp_price = $temp_price + 5;
+			echo 'Your total comes to $'.$temp_price.'.';
         }
         else echo "Enter your delivery date!";
     } else {
