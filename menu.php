@@ -44,12 +44,39 @@
 </header>
 <!--================Header Menu Area =================-->
 
+<!--================Hero Banner Section start =================-->
+<section class="hero-banner hero-banner-sm">
+    <div class="hero-wrapper">
+        <div class="hero-left">
+            <h1 class="hero-title">Cake Menu</h1>
+            <p>Explore our variety!</p>
+            <ul class="hero-info d-none d-lg-block">
+                <li>
+                    <img src="img/banner/fas-service-icon.png" alt="">
+                    <h4>Fast Service</h4>
+                </li>
+                <li>
+                    <img src="img/banner/fresh-cake-icon.png" alt="">
+                    <h4>Fresh Cake</h4>
+                </li>
+            </ul>
+        </div>
+        <div class="hero-right">
+            <div class="owl-carousel owl-theme w-100 hero-carousel">
+                <div class="hero-carousel-item">
+                    <img class="img-fluid" src="img/banner/red-velvet-menu.jpg" alt="">
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+<!--================Hero Banner Section end =================-->
 <!--================Food menu section start =================-->
 <section class="section-margin">
     <div class="container">
         <div class="section-intro mb-75px">
             <h4 class="intro-title">Cake Menu</h4>
-            <h2>Delicious cake</h2>
         </div>
         <!--     selection of flavour                      -->
         <form class="form-inline menu_filter" method="POST" action="menu.php">

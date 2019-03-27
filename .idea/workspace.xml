@@ -3,10 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="0db2eef0-954c-4f32-8b81-1a1783a18061" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/orderstatus.php" beforeDir="false" afterPath="$PROJECT_DIR$/orderstatus.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/payment.php" beforeDir="false" afterPath="$PROJECT_DIR$/payment.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/menu.php" beforeDir="false" afterPath="$PROJECT_DIR$/menu.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -18,20 +15,20 @@
     <splitter split-orientation="horizontal" split-proportion="0.84702796">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/payment.php">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="455">
+                <state relative-caret-position="486">
                   <caret line="174" selection-start-line="174" selection-end-line="179" selection-end-column="2" />
                 </state>
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/orderstatus.php">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="615">
-                  <caret line="149" column="7" selection-start-line="149" selection-start-column="7" selection-end-line="149" selection-end-column="7" />
+                <state relative-caret-position="569">
+                  <caret line="161" lean-forward="true" selection-start-line="161" selection-end-line="161" />
                 </state>
               </provider>
             </entry>
@@ -39,8 +36,17 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/menu.php">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-138">
-                  <caret line="54" column="56" lean-forward="true" selection-start-line="54" selection-start-column="56" selection-end-line="54" selection-end-column="56" />
+                <state relative-caret-position="138">
+                  <caret line="78" column="50" selection-start-line="78" selection-start-column="50" selection-end-line="78" selection-end-column="50" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/../learningmaterials/CPSC304/sneaky/menu.php">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="187">
+                  <caret line="44" selection-start-line="44" selection-end-line="71" selection-end-column="66" />
                 </state>
               </provider>
             </entry>
@@ -138,11 +144,11 @@
         <option value="$PROJECT_DIR$/orderstatus.html" />
         <option value="$PROJECT_DIR$/css/menu.css" />
         <option value="$PROJECT_DIR$/connect.php" />
-        <option value="$PROJECT_DIR$/menu.php" />
         <option value="$PROJECT_DIR$/index.php" />
         <option value="$PROJECT_DIR$/css/style.css" />
         <option value="$PROJECT_DIR$/payment.php" />
         <option value="$PROJECT_DIR$/orderstatus.php" />
+        <option value="$PROJECT_DIR$/menu.php" />
       </list>
     </option>
   </component>
@@ -229,12 +235,12 @@
       <workItem from="1553225915227" duration="2424000" />
       <workItem from="1553229484483" duration="44319000" />
       <workItem from="1553447021035" duration="8098000" />
-      <workItem from="1553460837545" duration="47184000" />
+      <workItem from="1553460837545" duration="48681000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="107976000" />
+    <option name="totallyTimeSpent" value="109473000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="6" />
@@ -435,13 +441,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/menu.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-138">
-          <caret line="54" column="56" lean-forward="true" selection-start-line="54" selection-start-column="56" selection-end-line="54" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/order_info.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
@@ -468,17 +467,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/payment.php">
+    <entry file="file://$PROJECT_DIR$/orderstatus.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="455">
-          <caret line="174" selection-start-line="174" selection-end-line="179" selection-end-column="2" />
+        <state relative-caret-position="569">
+          <caret line="161" lean-forward="true" selection-start-line="161" selection-end-line="161" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/orderstatus.php">
+    <entry file="file://$PROJECT_DIR$/../learningmaterials/CPSC304/sneaky/menu.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="615">
-          <caret line="149" column="7" selection-start-line="149" selection-start-column="7" selection-end-line="149" selection-end-column="7" />
+        <state relative-caret-position="187">
+          <caret line="44" selection-start-line="44" selection-end-line="71" selection-end-column="66" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/menu.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="78" column="50" selection-start-line="78" selection-start-column="50" selection-end-line="78" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/payment.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="486">
+          <caret line="174" selection-start-line="174" selection-end-line="179" selection-end-column="2" />
         </state>
       </provider>
     </entry>
