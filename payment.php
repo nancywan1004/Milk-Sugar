@@ -94,7 +94,7 @@ session_start();
                             <h4>Select Delivery Method: </h4>
                             <select name="dmethod" id="dmethod" onchange="ChangeSelect()">
                                 <option selected hidden value="none">Method</option>
-                                <option value="Home Delivery">Home Delivery</option>
+                                <option value="Home Delivery">Home Delivery + $5</option>
                                 <option value="Pick Up Yourself">Pick Up Yourself</option>
                             </select>
                         </div>
