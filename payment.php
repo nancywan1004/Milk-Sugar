@@ -93,7 +93,7 @@ session_start();
                     <div class="row">
                         <div class="col-12">
                             <h4>Select Delivery Method: </h4>
-                            <select name="dmethod" id="dmethod">
+                            <select name="dmethod" id="dmethod" onchange="ChangeSelect()">
                                 <option selected hidden value="none">Method</option>
                                 <option value="Home Delivery">Home Delivery + $5</option>
                                 <option value="Pick Up Yourself">Pick Up Yourself</option>
@@ -164,7 +164,10 @@ else {
         }
         else echo "Enter your delivery date!";
     } else {
-        echo "Choose the location!";
+//        $query5 = "INSERT INTO Pick_";
+//        $query6 = "SELECT * FROM Location";
+//        $location = $conn->query($query6);
+//        echo "Choose the location: '.$location.' ";
     }
 }
 CloseCon($conn);
@@ -179,11 +182,57 @@ session_unset();
 session_destroy();
 ?>
 <!--======Payment Section End=======-->
-<!--<script>-->
-<!--    function ChangeSelect() {-->
-<!--        if (document.getElementById("dmethod").value == "Home Delivery" ){-->
-<!--            var totalPrice =  5;-->
-<!--            window.location.reload(true);-->
-<!--        }-->
-<!--    }-->
-<!--</script>-->
+<!-- ================ start footer Area ================= -->
+<a name="footer-section"></a>
+<footer class="footer-area section-gap">
+    <div class="container">
+        <h3> Find us at ... </h3>
+        <div class="row">
+            <div class="media contact-info">
+                <span class="contact-info__icon"><i class="ti-home"></i></span>
+                <div class="media-body">
+                    <h3>310 Cambie St</h3>
+                    <p>Richmond, British Columbia</p>
+                </div>
+            </div>
+            <div class="media contact-info">
+                <span class="contact-info__icon"><i class="ti-home"></i></span>
+                <div class="media-body">
+                    <h3>100 Denman St</h3>
+                    <p>Vancouver, British Columbia</p>
+                </div>
+            </div>
+            <div class="media contact-info">
+                <span class="contact-info__icon"><i class="ti-home"></i></span>
+                <div class="media-body">
+                    <h3>415 Kingsway St</h3>
+                    <p>Burnaby, British Columbia</p>
+                </div>
+            </div>
+            <div class="media contact-info">
+                <span class="contact-info__icon"><i class="ti-home"></i></span>
+                <div class="media-body">
+                    <h3>520 Fraser St</h3>
+                    <p>Vancouver, British Columbia</p>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom row align-items-center text-center text-lg-left">
+            <p class="footer-text m-0 col-lg-8 col-md-12"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="ti-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+        </div>
+    </div>
+</footer>
+<!-- ================ End footer Area ================= -->
+<script>
+    function ChangeSelect() {
+            var dmethod = document.getElementById("dmethod").value;
+           if (dmethod == "Pick Up Yourself") {
+               location.href = "#footer-section";
+               alert("Choose your location!");
+        }else if(dmethod == "Home Delivery"){
+               alert("+5$ applied to your order!")
+           }
+    }
+</script>
