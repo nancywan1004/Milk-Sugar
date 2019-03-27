@@ -3,6 +3,8 @@
 
 $logName = $mysqli->escape_string($_POST['username']);
 $result = $mysqli->query("SELECT * FROM allUsers WHERE username='$logName'");
+// query confirmation number
+//$result = $mysqli->query("SELECT * FROM Customer2 WHERE custID='$logName'");
 
 // Check if username exists in database
 if ($result->num_rows == 0 ) {
@@ -19,22 +21,21 @@ else {
   //print_r($userArr);die;
 
   if ( $_POST['password'] == $userArr['password']) {
-  //if( password_verify($_POST['password'], $userArr['password']) ) {
 
     //print_r('Password good');die;
     // Session variables to be displayed
     $_SESSION['username'] = $userArr['username'];
-
-    // indicator that user is logged in
     $_SESSION['logged_in'] = true;
 
     // Redirecting to new page depending on role
-    if ( $userArr['type'] == 'c') {
-      // user is a customer
-      header("location: Customer.php");
-    }
-    else if ( $userArr['type'] == 'b') {
+    if ( $userArr['type'] == 'b') {
       header("location: baker.php");
+    }
+    else if ( $userArr['type'] == 'd') {
+      header("location: delivery.php");
+    }
+    else if ( $userArr['type'] == 'm') {
+      header("location: manager.php");
     }
 
   }
