@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -85,7 +88,7 @@
           <h2 class="contact-title">Your Order Information</h2>
         </div>
         <div class="col-lg-8">
-          <form class="form-contact contact_form">
+          <form class="form-contact contact_form" method="POST" action="orderstatus.php" id="form1">
             <div class="row">
               <div class="col-12">
                 <div class="form-group">
@@ -94,50 +97,81 @@
               </div>
             </div>
             <div class="form-group mt-3">
-              <button type="submit" class="button button-contactForm">Submit</button>
+                <button type="submit"  name="track" value="track" class="button button-contactForm" form="form1">Submit</button>
             </div>
           </form>
+
 		  
 			<?php
 			include 'connect.php';
 			$conn = OpenCon();
+        //    echo isset($_POST['track']);
+			$user_confirm = (isset($_POST['confirm#']) ? $_POST['confirm#'] : null);
+            $_SESSION['confirmNum'] = $user_confirm;
+           // echo $user_confirm;
+            if (isset($_POST['track'])) {
+//                echo 'success';
+                $query = "SELECT confirmNum, orderDate, status FROM cakeorder WHERE confirmNum = '{$user_confirm}'";
 
-			$user_confirm = (isset($_GET['confirm#']) ? $_GET['confirm#'] : null);
+                $result = $conn->query($query);
+                if ($result->num_rows > 0) {
 
-			$query = "SELECT confirmNum, orderDate, status FROM cakeorder WHERE confirmNum = '{$user_confirm}'";
-
-			$result = $conn->query($query);
-			if ($result->num_rows > 0) {
-
-				// output data of each row
-				while($row = $result->fetch_assoc()) {
-					echo '<div class="col-lg-6">
+                    // output data of each row
+                    while ($row = $result->fetch_assoc()) {
+                        echo '<div class="col-lg-6">
 						  <div class="media align-items-center food-card">
 							<div class="media-body">
 							  <div class="d-flex justify-content-between food-card-title">
-								<h4>Confirmation #: '.$row["confirmNum"].'</h4>
+								<h4>Confirmation #: ' . $row["confirmNum"] . '</h4>
 							  </div>
-							  <h3 class="price-tag">Order Date: '.$row['orderDate'].'</h3>
+							  <h3 class="price-tag">Order Date: ' . $row['orderDate'] . '</h3>
 							  <form>
-								<p>STATUS: '.$row['status'].'</p>
+								<p>STATUS: ' . $row['status'] . '</p>
 							  </form>
 							</div>
 						  </div>
 						</div>';
-				}
-				echo "</table>";
-			}
-			else {
-				echo "0 results";
-			}
-			CloseCon($conn);
+                    }
+                    echo "</table>";
+                } else {
+                    echo "0 results";
+                }
+                }
+
+                ?>
+                 <form class="form-group" method="POST" action="orderstatus.php" id="form2">
+                    <button type="submit" name="cancel" value="cancel" class="button button-contactForm" form="form2">Cancel</button>
+            </form>
+            <?php
+//            @$cancel = $_POST['cancel'];
+//            echo $conn->affected_rows;
+            $user_confirm = $_SESSION['confirmNum'];
+         //   echo !empty($_POST['cancel']);
+            echo $user_confirm;
+                 if (!isset($_POST['cancel'])) {echo "Cancellation Failed";}
+                 else{
+                    $query2 = "UPDATE CakeOrder set status = 'cancelled', cancelDate = CURRENT_DATE where confirmNum = '{$user_confirm}' ";
+                    $conn->query($query2);
+                    date_default_timezone_set('America/Los_Angeles');
+                    $date = date("Y-m-d H:i:s");
+                    echo $user_confirm;
+                    if ($conn->affected_rows == 1) {
+                        echo "Cancelled successfully on $date.";
+                    }
+                }
+
+
+                CloseCon($conn);
+
 			?>
 
         </div>
+
       </div>
     </div>
   </section>
 	<!-- ================ contact section end ================= -->
+
 
   
   <!-- ================ start footer Area ================= -->
@@ -224,3 +258,9 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
   <script src="js/main.js"></script>
 </body>
 </html>
+<?php
+// remove all session variables
+session_unset();
+// destroy the session
+session_destroy();
+?>
