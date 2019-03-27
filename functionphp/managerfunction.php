@@ -28,6 +28,8 @@
                       <option value="cakeorder">CakeOrder</option>
                       <option value="customerinfo">CustomerInfo</option>
                       <option value="cakereview">CakeReview</option>
+                      <option value="deletereviewoption">DeleteBadReview</option>
+
                       </select>
                       <button type="submit" class="managercheckbutton button btn-success button-contactForm" >Check</button>
                     </div>
@@ -52,6 +54,9 @@
           } else if ($checkwork === 'cakereview') {
             // check all cake review
               checkreview($conn);
+          } else if ($checkwork === 'deletereviewoption') {
+            //  show the form of delete review
+              deletereviewoption();
           }
         }
       }
@@ -206,13 +211,14 @@
       }
 
       function checkreview($conn) {
-        $sql = "SELECT score, custID, cname, comment
+        $sql = "SELECT reviewID,score, custID, cname, comment
                 from Review_Write  order by cname";
         $review = $conn->query($sql);
         if ($review->num_rows > 0) {
           echo "<table style='text-align:center' class='ordertable table table-striped'>
                     <thead>
                       <tr>
+                      <th scope='col'>reviewID</th>
                         <th scope='col'>CakeName</th>
 
                         <th scope='col'>score</th>
@@ -224,8 +230,8 @@
           while ($row = $review->fetch_assoc()) {
             echo   "<tbody>
                         <tr>
-                          <th scope='row'>".$row["cname"]."</th>
-
+                          <th scope='row'>".$row["reviewID"]."</th>
+                          <td>".$row["cname"]."</td>
                           <td>".$row["score"]."</td>
                           <td>".$row["comment"]."</td>
                           <td>".$row["custID"]."</td>
@@ -234,6 +240,7 @@
           }
           echo "</table>";
         }
+
       }
 
       function hiredelivery($phonenum, $deliveryname, $conn){
@@ -373,4 +380,45 @@
         }
       }
 
+      function deletereviewoption() {
+        echo "
+        <div class='container '>
+        <h4>Please insert the reviewID to delete a review information:</h4>
+        <form action='manager.php' method='POST'>
+
+            <div class='updatecake form-row align-items-center'>
+              <div class='cakename col-auto'>
+
+                <input type='text' name='deletereview' class=' form-control mb-4' id='inlineFormInput' placeholder='Review ID'>
+              </div>
+              <div class='col-auto'>
+
+              <div class='updatecakesubmit col-auto'>
+                <button type='submit' style='background:#52af52' class=' btn btn-primary mb-2 bakerupdateorder'>Delete</button>
+              </div>
+            </div>
+
+          </form>
+          </div>";
+      }
+
+     function deletereview ($review, $conn) {
+       if (isset($review)) {
+         // show checkoption table
+         checkoption();
+         // sql
+         // check review id
+         $checkreviewsql = "SELECT * FROM Review_Write WHERE reviewID = '$review'";
+         $checkreview = $conn->query($checkreviewsql);
+         if ( $checkreview->num_rows > 0) {
+         // delete review id
+         $deletereviewsql = "DELETE FROM Review_Write WHERE reviewID = '$review'";
+         $conn->query($deletereviewsql);
+         echo "<div class='container'><h5>Delete a review (ReviewID: ".$review.")  successfully.</h5></div>";
+       } else {
+         deletereviewoption();
+         echo "<div class='container'><h5>Please insert the correct review ID.</h5></div>";
+       }
+     }
+   }
  ?>

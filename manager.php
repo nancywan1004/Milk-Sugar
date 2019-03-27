@@ -92,6 +92,10 @@
                   checkworkoption($checkwork, $conn);
                 //  check company status end =====
 
+                // delete review
+                @$deletereview = $_POST['deletereview'];
+                  deletereview($deletereview, $conn);
+
                 // hire delivery person ===================
                 @$phonenum = $_POST['phonenum'];
                 @$deliveryname = $_POST['deliveryname'];
@@ -108,6 +112,8 @@
                 // data analysis
                 @$analysis = $_POST['analysis'];
                 dataanalysis($analysis, $conn);
+
+
 
 
                CloseCon($conn);
