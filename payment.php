@@ -108,8 +108,8 @@ session_start();
                             <option value="415 Kingsway St Burnaby">415 Kingsway St, Burnaby, British Columbia</option>
                             <option value="205 Fraser St Vancouver">205 Fraser St, Vancouver, British Columbia</option>
                         </select>
-                        <input class="form-control" type="text" id="pdate" name="pdate" placeholder="Pickup date..">
                     </div>
+                        <input class="form-control" type="text" id="pdate" name="pdate" placeholder="Pickup date..">
                         <div class="col-12">
                             <h4>Select Payment Method: </h4>
                             <select name="method" >
