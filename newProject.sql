@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 27, 2019 at 11:24 PM
+-- Generation Time: Mar 28, 2019 at 01:12 AM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 5.6.40
 
@@ -147,6 +147,10 @@ INSERT INTO `Contains` (`confirmNum`, `cakeID`, `custID`) VALUES
 (18, 1003, 3),
 (102, 1004, 4),
 (103, 1005, 5),
+(104, 1003, 1),
+(105, 1010, 6),
+(106, 1006, 3),
+(107, 1009, 2),
 (142, 1001, 1);
 
 -- --------------------------------------------------------
