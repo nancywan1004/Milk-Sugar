@@ -3,5 +3,5 @@
 $host = 'localhost';
 $user = 'root';
 $pass = 'root';
-$db = 'project2';
+$db = 'milksugarnew';
 $mysqli = new mysqli($host, $user, $pass, $db) or die($mysqli->error);
