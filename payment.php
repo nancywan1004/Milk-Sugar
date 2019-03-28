@@ -101,6 +101,16 @@ session_start();
                         </div>
                         <input class="form-control" type="text" id="deldate" name="deldate" placeholder="Delivery Date..">
                         <div class="col-12">
+                        <select name="plocation" id="plocation">
+                            <option selected hidden value="none">Location</option>
+                            <option value="310 Cambie St Richmond">310 Cambie St, Richmond, British Columbia</option>
+                            <option value="100 Denman St Vancouver">100 Denman St, Vancouver, British Columbia</option>
+                            <option value="415 Kingsway St Burnaby">415 Kingsway St, Burnaby, British Columbia</option>
+                            <option value="205 Fraser St Vancouver">205 Fraser St, Vancouver, British Columbia</option>
+                        </select>
+                        <input class="form-control" type="text" id="pdate" name="pdate" placeholder="Pickup date..">
+                    </div>
+                        <div class="col-12">
                             <h4>Select Payment Method: </h4>
                             <select name="method" >
                                 <option selected hidden value="none">Method</option>
@@ -167,12 +177,12 @@ else {
         }
         else echo "Enter your delivery date!";
     } else {
-        echo $plocation;
+       // echo $plocation;
         $query6 = "SELECT lid FROM Location where address = '{$plocation}'";
         $lid = $conn->query($query6);
         if ($lid->num_rows > 0){
             while($row2 = $lid->fetch_assoc()) {
-                $query5 = "INSERT INTO Pickup_PickedAt VALUES('{$confirmNum}','{$row2['lid']}','{$pdate}')";
+                $query5 = "INSERT INTO Pickup_PickedAt VALUES('{$temp}','{$row2['lid']}','{$pdate}')";
                 $conn->query($query5);
                 $temp2 = $row2['lid'];
             }
@@ -201,16 +211,6 @@ session_destroy();
 
     <div class="container">
         <h3> Find us at ... </h3>
-        <div class="col-12">
-        <select name="plocation" id="plocation">
-            <option selected hidden value="none">Location</option>
-            <option value="310 Cambie St Richmond">310 Cambie St, Richmond, British Columbia</option>
-            <option value="100 Denman St Vancouver">100 Denman St, Vancouver, British Columbia</option>
-            <option value="415 Kingsway St Burnaby">415 Kingsway St, Burnaby, British Columbia</option>
-            <option value="205 Fraser St Vancouver">205 Fraser St, Vancouver, British Columbia</option>
-        </select>
-        </div>
-        <input class="form-control" type="text" id="pdate" name="pdate" placeholder="Pickup date..">
         <div class="row">
             <div class="media contact-info">
                 <span class="contact-info__icon"><i class="ti-home"></i></span>
