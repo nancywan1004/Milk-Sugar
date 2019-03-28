@@ -162,6 +162,7 @@ if ($dmethod == "Home Delivery") {
             $query4 = "UPDATE CakeOrder set totalPrice = '{$temp_price}' + 5 where confirmNum = '{$temp}' ";
 			
             $query3 = "INSERT INTO Delivery_Fulfill VALUES ('{$temp}', '{$ddate}', '{$useraddress}')";
+			// $query5 = "INSERT INTO Contains VALUES ('{$temp}', '{$ddate}', '{$useraddress}')";
             $conn->query($query4);
 			
 			// echo ''.$conn->affected_rows.'';

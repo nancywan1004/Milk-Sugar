@@ -244,7 +244,7 @@ ob_start(); // Initiate the output buffer
 										
 					$nothing = 'NULL';
 					
-					$query4 = "INSERT INTO CakeOrder VALUES ('{$_SESSION["counter"]}', '{$quantity}', CURRENT_DATE, '{$temp}', NULL, 'pending', '{$row1['cakeID']}')";
+					$query4 = "INSERT INTO CakeOrder VALUES ('{$_SESSION["counter"]}', '{$quantity}', CURRENT_DATE, '{$temp}', NULL, 'pending')";
 					
 					$result4 = $conn->query($query4);
 
