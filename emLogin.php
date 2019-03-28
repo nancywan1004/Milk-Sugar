@@ -51,9 +51,12 @@ session_start();
     }
     /*container for login form*/
     .center-login {
-      position: absolute;
-      right: 0;
-      margin: 20px;
+      /* position: absolute;
+      right: 0; */
+      display: inline-block;
+      /* margin-left: 35%; */
+      margin-top: 20px;
+
       max-width: 300px;
       padding: 16px;
       background-color: white;

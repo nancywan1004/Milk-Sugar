@@ -35,9 +35,9 @@ session_start();
                     <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                         <ul class="nav navbar-nav menu_nav justify-content-end">
                             <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
-                            <li class="nav-item"><a class="nav-link" href="menu.php">Our Menu</a>
-                            </li>
+                            <li class="nav-item"><a class="nav-link" href="menu.php">Our Menu</a></li>
                             <li class="nav-item active"><a class="nav-link" href="orderstatus.php">Track Your Cake</a></li>
+                            <li class="nav-item active"><a class="nav-link" href="emLogin.php">Employee Login</a></li>
                         </ul>
                     </div>
                 </div>
