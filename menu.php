@@ -67,7 +67,7 @@
                     <option value="coffee">Coffee</option>
                     </select>
                   </div>
-				  
+
 			</div>
 		  <div class="form-group input-flavour">
                   <div class="col-12">
@@ -78,7 +78,7 @@
                     <option value="8">8'</option>
                     <option value="10">10'</option>
                     </select>
-               
+
                   </div>
           </div>
 		  <input type='submit' class="button button-contactForm" >
@@ -97,24 +97,24 @@
 			if ((empty($flavour) or $flavour == "none")
 				and (empty($size) or $size == "none")) {
 			  $sql = "SELECT c.cakeID cakeID,c.cname cname, c.size size, c.price price, ct.ingredients ingredients
-					  FROM allcake c, CakeType ct
+					  FROM Cake c, CakeType ct
 					  WHERE c.cname = ct.cname
 					  ORDER by c.cname";
 			} else {
 			  $sql = "SELECT c.cakeID cakeID,c.cname cname, c.size size, c.price price, ct.ingredients ingredients
-					  FROM allcake c, CakeType ct
+					  FROM Cake c, CakeType ct
 					  WHERE c.cname = ct.cname AND ct.flavour = '$flavour'
 					  ORDER by c.cname";
 			}
 		} else if ((empty($flavour) or $flavour == "none")
 			and !(empty($size) or $size == "none")) {
           $sql = "SELECT c.cakeID cakeID,c.cname cname, c.size size, c.price price, ct.ingredients ingredients
-                  FROM allcake c, CakeType ct
+                  FROM Cake c, CakeType ct
                   WHERE c.cname = ct.cname AND c.size = '$size'
                   ORDER by c.cname";
         } else {
 			$sql = "SELECT c.cakeID cakeID,c.cname cname, c.size size, c.price price, ct.ingredients ingredients
-                  FROM allcake c, CakeType ct
+                  FROM Cake c, CakeType ct
                   WHERE c.cname = ct.cname AND c.size = '$size' AND ct.flavour = '$flavour'
                   ORDER by c.cname";
 		}
