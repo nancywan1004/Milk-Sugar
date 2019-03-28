@@ -222,11 +222,9 @@ ob_start(); // Initiate the output buffer
 			$cake_size = (isset($_GET['cake_size']) ? $_GET['cake_size'] : null);
 			$quantity = (isset($_GET['quantity']) ? $_GET['quantity'] : null);
 
-			$query1 = "INSERT INTO customer1 VALUES ('{$user_name}', '{$user_address}', '{$user_phone}');";
 			$query2 = "SELECT cakeID FROM cake WHERE cname = '{$cake_name}' and size = '{$cake_size}'"; 
-			$query3 = "SELECT price FROM CakePrice WHERE cname = '{$cake_name}' and size = '{$cake_size}'";
+			$query3 = "SELECT price FROM cake WHERE cname = '{$cake_name}' and size = '{$cake_size}'";
 			
-			$result1 = $conn->query($query1);
 			$result2 = $conn->query($query2);
 			$result3 = $conn->query($query3);
 			
@@ -240,11 +238,14 @@ ob_start(); // Initiate the output buffer
 					
 					$_SESSION["counter"] = rand(150, 250);
 					
+					$query1 = "INSERT INTO customer2 VALUES ('{$_SESSION["counter"]}', '{$user_phone}', '{$user_name}', '{$user_address}');";
+					$result1 = $conn->query($query1);
+					
 					$temp = $quantity * $row2['price'];
 										
 					$nothing = 'NULL';
 					
-					$query4 = "INSERT INTO CakeOrder VALUES ('{$_SESSION["counter"]}', '{$quantity}', CURRENT_DATE, '{$temp}', NULL, 'pending', '{$row1['cakeID']}')";
+					$query4 = "INSERT INTO CakeOrder VALUES ('{$_SESSION["counter"]}', '{$quantity}', CURRENT_DATE, '{$temp}', NULL, 'pending')";
 					
 					$result4 = $conn->query($query4);
 
