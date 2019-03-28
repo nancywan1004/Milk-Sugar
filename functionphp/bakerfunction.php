@@ -21,7 +21,7 @@
         function checkorder($conn) {
           $sql = "SELECT o.confirmNum confirmNum, c.cakeID cakeID, o.pquantity pquantity, o.orderDate orderDate
                   FROM CakeOrder o, Contains c
-                  WHERE o.confirmNum = c.confirmNum AND o.status is null";
+                  WHERE o.confirmNum = c.confirmNum AND o.status = 'pending'";
          $cakeorder = $conn->query($sql);
          if ($cakeorder->num_rows > 0) {
            echo "<table class='ordertable table table-striped'>
