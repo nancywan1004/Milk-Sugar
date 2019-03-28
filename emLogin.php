@@ -23,6 +23,75 @@ session_start();
 
   <link rel="stylesheet" href="css/style.css">
   <link href = "css/bootstrap.min.css" rel = "stylesheet">
+  <style>
+
+    .hero-wrapper {
+      text-align: center;
+      color: black;
+
+      /* The image used */
+      background-image: url("img/pastryLogin.png");
+
+      min-height: 380px;
+
+      /* Center and scale the image nicely */
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      position: relative;
+    }
+    .top-left {
+      position: absolute;
+      font-size: 400%;
+      font-family: "Monaco";
+
+      top: 0%;
+      left: 0%;
+      transform: translate(-50%, -50%);
+    }
+    /*container for login form*/
+    .center-login {
+      position: absolute;
+      right: 0;
+      margin: 20px;
+      max-width: 300px;
+      padding: 16px;
+      background-color: white;
+      opacity: 0.8;
+
+    }
+
+    /* Full-width input fields */
+    input[type=text], input[type=password] {
+      width: 100%;
+      padding: 15px;
+      margin: 5px 0 22px 0;
+      border: none;
+      background: #f1f1f1;
+    }
+
+    input[type=text]:focus, input[type=password]:focus {
+      background-color: #ddd;
+      outline: none;
+    }
+
+
+    /* Set a style for the submit button */
+    .btn {
+      background-color: #FF0000;
+      color: white;
+      padding: 16px 20px;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      opacity: 0.9;
+}
+
+    .btn {
+      opacity: 1;
+    }
+
+  </style>
 </head>
 
 <?php
@@ -73,30 +142,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   <!--================Header Menu Area =================-->
 
   <!--================Hero Banner Section start =================-->
-<section class="hero-banner hero-banner-sm">
+  <section class="hero-banner hero-banner-sm">
   <div class="hero-wrapper">
-    <div class="hero-left">
-      <h1 class="hero-title">Employee Login</h1>
-      <ul class="hero-info d-none d-md-block">
-      </ul>
-    </div>
-    <div class="hero-right">
+    <!--<img class="img-fluid" src="img/pastryLogin.png" alt="">-->
+    <!--<div class="top-left">Employee Login</div>-->
+        <form action="emLogin.php" id="form_id" method="post" name="myform" class="center-login">
+          <!--<h1>Login</h1>-->
+          <label for="username"><b>Username :</b></label>
+          <input type="text" placeholder="Username" name="username" id="username" required/>
 
-      <div class="jslogin">
-        <h3>Login</h3>
-        <form action="emLogin.php" id="form_id" method="post" name="myform">
-          <label>User Name :</label>
-          <input type="text" name="username" id="username"/>
-          <label>Password :</label>
-          <input type="password" name="password" id="password"/>
-          <button class="button button-block" name="login" />Log In</button>
-          <!--<input type="button" name="login" value="Login" id="submit"/>-->
+          <label for="password"><b>Password :</b></label>
+          <input type="password" placeholder="Password" name="password" id="password" required/>
+
+          <button class="btn" name="login" />Log In</button>
         </form>
-      </div>
-    </div>
   </div>
-</section>
-<!--================Hero Banner Section end =================-->
+  </section>
+
+  .
+  <!--================Hero Banner Section end =================-->
 
   <!-- ================ start footer Area ================= -->
   <footer class="footer-area section-gap">
