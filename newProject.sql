@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 28, 2019 at 01:44 AM
+-- Generation Time: Mar 28, 2019 at 02:01 AM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 5.6.40
 
@@ -94,8 +94,8 @@ CREATE TABLE `CakeOrder` (
 --
 
 INSERT INTO `CakeOrder` (`confirmNum`, `pquantity`, `orderDate`, `totalPrice`, `cancelDate`, `status`) VALUES
-(18, 2, '2018-05-01', 96, NULL, 'finished'),
-(102, 3, '2019-02-01', 180, NULL, 'finished'),
+(18, 2, '2018-05-01', 96, NULL, 'pending'),
+(102, 3, '2019-02-01', 180, NULL, 'pending'),
 (103, 10, '2019-01-13', 280, NULL, 'finished'),
 (104, 1, '2019-02-01', 35, NULL, 'picked'),
 (105, 2, '2019-02-02', 100, NULL, 'picked'),
@@ -279,22 +279,23 @@ INSERT INTO `Payment_Paid1` (`pid`, `pmethod`) VALUES
 
 CREATE TABLE `Payment_Paid2` (
   `confirmNum` int(11) NOT NULL,
-  `pid` int(11) DEFAULT NULL
+  `pid` int(11) DEFAULT NULL,
+  `method` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `Payment_Paid2`
 --
 
-INSERT INTO `Payment_Paid2` (`confirmNum`, `pid`) VALUES
-(18, 2),
-(102, 3),
-(103, 4),
-(104, 5),
-(105, 6),
-(106, 7),
-(107, 8),
-(142, 1);
+INSERT INTO `Payment_Paid2` (`confirmNum`, `pid`, `method`) VALUES
+(18, 2, 'Pickup'),
+(102, 3, 'Home Delivery'),
+(103, 4, 'Home Delivery'),
+(104, 5, 'Pickup'),
+(105, 6, 'Pickup'),
+(106, 7, 'Home Delivery'),
+(107, 8, 'Home Delivery'),
+(142, 1, 'Pickup');
 
 -- --------------------------------------------------------
 
