@@ -5,6 +5,7 @@ Milk & Sugar
 Milk & Sugar is a small chain cake shop with multiple locations in the Greater Vancouver area. The bakery produces
 a variety of cakes and customers can buy cakes either through walk-in basis or online-order basis. The end users of
 the database (web application as the GUI) are customers, bakers, delivery peoples, and managers.
+
 Customer:
 1. view the cake catalog
 2. read cake reviews written by other customers
@@ -12,16 +13,20 @@ Customer:
 4. write cake reviews
 5. view order status
 6. cancel order
+
 Manager, Baker, and Delivery Person
+
 Bakers:
 1. check order that have status as “Pending”
 2. When cake is ready, Insert the confirm number of order to update order status to be “Cake is ready.”
 3. Insert cake name, topping, ingredients to update cake type
+
 Delivery Persons:
 1. Check all the order with status are “Cake is ready.”
 2. When finished delivery, insert confirm number of order to update order status to be “finished”
 3. Insert their phone number , new phone number to update their phone number
 4. check all the info of all cake stores
+
 Managers:
 1. Check company status:
 1. Check each person info in delivery team
